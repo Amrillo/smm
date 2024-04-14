@@ -1,0 +1,32 @@
+<div class="order-box" *ngIf="showOrder">
+  <div class="order-box__wrapper order-call">
+      <div class="order-box__close"  (click)="closeOrder()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0.935622" y1="0.649902" x2="12.9564" y2="12.6707" stroke="#BEBEBE" stroke-linecap="round"/>
+            <line x1="12.9236" y1="0.629714" x2="0.902769" y2="12.6505" stroke="#BEBEBE" stroke-linecap="round"/>
+          </svg>
+      </div>
+      <ng-content select="[main]"></ng-content>
+      <ng-content select="[footer]"></ng-content>
+      <div class="order-call__form">
+          <input type="text" class="order-call__input" placeholder="Копирайтинг" *ngIf="orderType === 'main'">
+          <input type="text" class="order-call__input" placeholder="Ваше имя">
+          <input type="text" class="order-call__input" placeholder="Ваш номер телефона">
+          <button class="button" *ngIf="orderType === 'footer'">Заказать консультацию</button>
+          <button class="button" *ngIf="orderType === 'main'">Оставить заявку</button>
+      </div>
+  </div>
+</div>
+<div class="order-box" *ngIf="showResult">
+  <div class="order-box__wrapper order-message">
+    <div class="order-box__close"  (click)="closeResult()" >
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0.935622" y1="0.649902" x2="12.9564" y2="12.6707" stroke="#BEBEBE" stroke-linecap="round"/>
+        <line x1="12.9236" y1="0.629714" x2="0.902769" y2="12.6505" stroke="#BEBEBE" stroke-linecap="round"/>
+      </svg>
+    </div>
+     <h2 class="sub-title">Спасибо за вашу заявку!</h2>
+     <p class="order-message__text">Мы свяжемся с вами при первой же возможности.</p>
+     <button class="button">Окей</button>
+  </div>
+</div>

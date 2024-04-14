@@ -1,0 +1,25 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.header {
+  padding: 40px 0;
+  font-size: 16px;
+  font-weight: 500;
+
+  .container {
+     @include flex-spc-betw;
+  }
+
+  &__phone {
+    color: $primary-light-color ;
+  }
+
+  &__account {
+    @include flex-spc-betw;
+    max-width: 84px;
+    span {
+      margin-left: 7px;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+// @import "variables";
+
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: $cont-w;
+    margin: 0 auto;
+  }
+
+a {
+  text-decoration: none;
+  color: none;
+}
+
+li {
+  list-style: none;
+}
+
+input[type="text"] {
+   padding: 17.5px 20px;
+   border: 2px solid $primary-light-color;
+   margin-bottom: 5px;
+   font-size: 14px;
+   width: 100%;
+   &::placeholder {
+    color: #A8ABA7;
+   }
+   &:focus-visible {
+     outline: none;
+   }
+}
+
+
+.logo {
+  width: 85px;
+  cursor: pointer;
+
+    img {
+      max-width: 100%;
+    }
+}
+
+.menu {
+  @include flex-spc-betw;
+  margin-left: -100px;
+  &__item {
+    margin-right: 30px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+    a {
+      color: $primary-dark-color;
+    }
+  }
+}
+
+.button {
+    padding: 15px 40px;
+    width: 163px;
+    height: 51px;
+    background: #709FDC;
+    border-radius: 5px;
+    color: $primary-white-color;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.sub-title {
+   font-size: 38px;
+   font-family: "Lora", sans-serif;
+   font-weight: 400;
+   color: $primary-light-color;
+   margin-bottom: 20px;
+}
+
+.card-title {
+   font-size: 26px;
+   font-weight: 500;
+   color: $primary-light-color;
+}
+
+// carousel built-in styles ;
+.owl-carousel .owl-item img {
+  width: unset !important;
+  object-fit: contain;
+}
+
+.owl-theme .owl-nav.disabled+.owl-dots {
+  margin-top: -75px;
+  position: relative;
+}
+.owl-theme .owl-dots .owl-dot span {
+  background: transparent;
+  border: 1px solid $primary-white-color;
+  border-radius: 50%;
+}
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: $primary-white-color;
+}
