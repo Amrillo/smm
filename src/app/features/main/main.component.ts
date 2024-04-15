@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { advantagesData } from 'src/app/constants/advantage-data';
-import { serviceCards } from 'src/app/constants/service-cards';
-import { sliderData } from 'src/app/constants/slider-data';
+import { advantagesData } from 'src/constants/advantage-data';
+import { serviceCards } from 'src/constants/service-cards';
+import { sliderData } from 'src/constants/slider-data';
 import { OrderModalService } from 'src/app/shared/services/order-modal.service';
+import { ArticleService } from 'src/app/shared/services/article.service';
+import { ArticlesType } from 'src/types/articles.type';
 
 @Component({
   selector: 'app-main',
@@ -39,12 +41,15 @@ export class MainComponent implements OnInit {
   serviceCards = serviceCards;
   sliders = sliderData ;
   advantages = advantagesData ;
-  constructor(private orderCallService: OrderModalService) { }
-
+  topArticles: ArticlesType[] = [];
+  constructor(private orderCallService: OrderModalService, private articleService : ArticleService) { }
 
 
     ngOnInit(): void {
-
+        this.articleService.getTopArticles()
+          .subscribe((data: ArticlesType[])=> {
+            this.topArticles = data ;
+          })
     }
     putOrder() {
       this.orderCallService.show();

@@ -5,24 +5,26 @@ import { AppComponent } from './app.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
-import { OrderCallComponent } from './shared/components/order-call/order-call.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './features/main/main.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
-    OrderCallComponent,
     MainComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     CarouselModule,
+    HttpClientModule,
+    SharedModule,
     BrowserAnimationsModule,
     AppRoutingModule
   ],
