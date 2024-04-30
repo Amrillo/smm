@@ -27,12 +27,15 @@ li {
   list-style: none;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"]{
    padding: 17.5px 20px;
    border: 2px solid $primary-light-color;
    margin-bottom: 5px;
    font-size: 14px;
    width: 100%;
+   border-radius: 3px;
    &::placeholder {
     color: #A8ABA7;
    }
@@ -41,6 +44,19 @@ input[type="text"] {
    }
 }
 
+input.ng-touched.ng-valid  {
+  border: 2px solid #42A948;
+}
+
+input.ng-touched.ng-invalid {
+  border: 2px solid #f08483;
+}
+
+.show-error {
+  text-align: left;
+  color: red;
+  margin-bottom: 5px;
+}
 
 .logo {
   width: 85px;
@@ -63,6 +79,9 @@ input[type="text"] {
     }
     a {
       color: $primary-dark-color;
+      &.active {
+        color: $primary-light-color;
+      }
     }
   }
 }
@@ -77,6 +96,11 @@ input[type="text"] {
     font-size: 16px;
     border: none;
     cursor: pointer;
+
+    &:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
 }
 
 .sub-title {
@@ -111,4 +135,23 @@ input[type="text"] {
 .owl-theme .owl-dots .owl-dot.active span,
 .owl-theme .owl-dots .owl-dot:hover span {
   background: $primary-white-color;
+}
+
+.slider-arrows {
+  display: flex;
+  align-items: center;
+  a {
+    top: calc(50% - 5px);
+    display: flex;
+    z-index: 1;
+    position: absolute;
+    cursor: pointer;
+
+    &.prev-btn {
+      left: 20px
+    }
+    &.next-btn {
+      right: 20px
+    }
+  }
 }

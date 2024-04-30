@@ -1,0 +1,56 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.user {
+    .sub-title {
+      font-size: 35px;
+      margin-bottom: 40px;
+    }
+
+    &__info {
+
+
+       input {
+        width: 100%;
+       }
+
+       &-checkbox {
+
+          display: flex;
+          align-items: end;
+          margin-bottom: 40px;
+          margin-top: 5px;
+          &.signup-checkbox {
+            align-items: baseline;
+          }
+          input {
+            width: 14px;
+            height: 14px;
+            margin: 0;
+          }
+          label {
+            margin-left: 10px;
+             color: $primary-dark-color;
+             a {
+              color: $primary-light-color;
+              cursor: pointer;
+             }
+          }
+       }
+
+       .button {
+          width: 100%;
+          margin-bottom: 10px;
+       }
+       .user__link {
+          color: $primary-dark-color;
+
+          a {
+             color: $primary-light-color;
+             cursor: pointer;
+          }
+       }
+
+    }
+
+}

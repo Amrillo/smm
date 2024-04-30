@@ -1,0 +1,38 @@
+<div class="user" [formGroup]="userForm" >
+    <div class="sub-title" *ngIf="registration === 'signup'"> Регистрация на сайте</div>
+    <h2 class="sub-title" *ngIf="registration === 'login'"> Войти в личный кабинет</h2>
+    <div class="user__info">
+        <input type="text"  name="name" id="name" formControlName="name"  placeholder="Ваше имя" *ngIf="registration === 'signup'">
+        <div class="show-error" *ngIf="userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty) ">
+            <div *ngIf="userForm.get('name')?.errors?.['required']">Обязательное поле</div>
+            <div *ngIf="userForm.get('name')?.errors?.['pattern']">Введите только буквы. Первая буква должно быт заглавним</div>
+        </div>
+
+        <input type="email"  name="email" id="email" formControlName="email" placeholder="Электронная почта" email>
+        <input type="password"  name="password" id="password" formControlName="password" placeholder="Пароль">
+
+        <div *ngIf="registration === 'login'">
+            <div class="user__info-checkbox" >
+              <input type="checkbox" id="remember" formControlName="rememberMe">
+              <label for="remember">Запомнить меня</label>
+            </div>
+            <button class="button" [disabled]="userForm.get('email')?.invalid || userForm.get('password')?.invalid"  (click)="login()">Войти</button>
+            <div class="user__link">
+               Нет аккаунта? <a (click)="passToSignup()">Пройдите регистрацию</a>
+            </div>
+        </div>
+        <div *ngIf="registration === 'signup'">
+            <div class="user__info-checkbox signup-checkbox">
+                <input type="checkbox" id="agree" formControlName="agree">
+                <label for="agree">
+                  Я принимаю
+                  <a href="#">условия пользовательского соглашения и даю согласие на обработку персональных данных.</a>
+                </label>
+            </div>
+            <button class="button" [disabled]="!userForm.valid" (click)="signup()">Зарегистрироваться</button>
+            <div class="user__link">
+              Уже есть аккаунт?  <a (click)="passToLogin()">Войдите</a>
+            </div>
+        </div>
+    </div>
+</div>

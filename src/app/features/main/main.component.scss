@@ -9,27 +9,7 @@
 
   .container {
     position: relative;
-
-    .slider__arrows {
-      display: flex;
-      align-items: center;
-      a {
-        top: calc(50% - 5px);
-        display: flex;
-        z-index: 1;
-        position: absolute;
-        cursor: pointer;
-
-        &.prev-btn {
-          left: 20px
-        }
-        &.next-btn {
-          right: 20px
-        }
-      }
-    }
   }
-
 
   &__holder {
       width: 100%;
@@ -291,4 +271,113 @@
    }
 }
 
+// section reviews
 
+.reviews {
+  padding: 60px 0;
+
+  .sub-title {
+    text-align: left;
+  }
+  &__list {
+    position: relative;
+
+    .slider-arrows {
+      top: calc(50% - 10px);
+
+      .prev-btn {
+        left: -20px;
+      }
+
+      .next-btn {
+        right: -20px;
+      }
+    }
+  }
+  &__item {
+     width: 396px;
+     height: 267px;
+     padding: 30px;
+     border-radius: 5px;
+     border: 2px solid  $primary-light-color;
+     margin-right: 25px;
+
+     &:last-child {
+        margin-right: 0;
+     }
+
+     &-account {
+       display: flex;
+       align-items: center;
+       margin-bottom: 15px ;
+
+       &-image {
+          margin-right: 18px;
+
+          img {
+            max-width: 100%;
+            object-fit: cover;
+          }
+       }
+       &-name {
+          font-size: 16px;
+          color: $primary-light-color;
+          font-weight: 600;
+       }
+     }
+
+     &-text {
+       line-height: 22px;
+       font-size: 16px;
+       color: $primary-dark-color;
+     }
+  }
+}
+
+.contacts {
+   padding: 60px 0;
+
+   .container {
+      display: flex;
+      align-items: center;
+   }
+
+   &__info {
+     margin-left: 25px;
+     padding-bottom: 63px;
+      h2 {
+        margin-top: 15px;
+      }
+     &-text {
+       max-width: 501px;
+       display: flex;
+       flex-direction: column;
+       align-items: flex-start;
+       margin-bottom: 20px;
+
+       &:last-child {
+        margin-bottom: 0;
+       }
+       h3 {
+        margin-bottom: 10px;
+       }
+       p {
+        line-height: 18px;
+        color: $primary-dark-color;
+       }
+
+       &-medias {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        a {
+          margin-right: 20px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+       }
+     }
+   }
+}

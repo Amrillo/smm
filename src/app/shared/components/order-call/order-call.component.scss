@@ -38,6 +38,10 @@
       width: 100%;
       margin-top: 20px;
     }
+
+    &__form {
+      width: 422px;
+    }
 }
 
 .order-message {
@@ -56,6 +60,46 @@
        padding: 10px 20px;
        font-size: 12px;
        font-weight: 500;
+
     }
 
 }
+
+// dropdown css
+.dropdown {
+    position: relative;
+    width: 100%;
+    margin-bottom: 5px;
+
+    &__btn {
+      color: $primary-light-color;
+      text-align: left;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+   }
+
+    &__content {
+
+      width: 100%;
+      position: absolute;
+      background-color:$primary-white-color;
+      z-index: 1;
+      overflow:auto ;
+      text-align: left;
+      border: 2px solid $primary-light-color;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+
+      a {
+        color: $primary-light-color;
+        padding: 17px 20px;
+        display: block;
+      }
+    }
+  }
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+@import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/mixins";
+
+
+.signup {
+   padding-top: 123px;
+   padding-bottom: 120px;
+
+   .container {
+      @include flex-spc-betw;
+   }
+   &__process {
+      width: 422px ;
+      margin-right: 185px;
+   }
+
+   &__image {
+     flex: 1 1 50%;
+
+     img  {
+      max-width: 100%;
+      object-fit: cover
+     }
+   }
+}
