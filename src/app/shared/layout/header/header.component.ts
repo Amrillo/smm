@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   userName: string = '';
 
   constructor(private authService : AuthService, private _snackBar: MatSnackBar, private router: Router) {
-       this.loggedIn = this.authService.getIsLoggedIn();
+       this.loggedIn = !!localStorage.getItem('accessToken');
   }
 
   ngOnInit(): void {

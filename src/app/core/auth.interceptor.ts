@@ -35,7 +35,6 @@ export class AuthInterceptor implements HttpInterceptor {
    }
 
     handle500Error(req: HttpRequest<any>, next:HttpHandler) {
-      debugger
        return this.authService.refreshPost()
          .pipe(
            switchMap((result: DefaultResponseType | LoginResponseType)=> {
@@ -64,6 +63,7 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError(
                error=> {
                  this.authService.removeTokens();
+                 this.authService.userId = null ; 
                  this.router.navigateByUrl('/');
                  return throwError(()=> error)
                }
