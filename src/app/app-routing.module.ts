@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: '', component: LayoutComponent,
     children: [
       {path: '', component: MainComponent},
-      {path: '', loadChildren: ()=>import('./features/authorization/user/user.module').then(m=>m.UserModule), canActivate: [AuthForwardGuard]},
+      {path: '', loadChildren: ()=>import('./features/authorization/user.module').then(m=>m.UserModule), canActivate: [AuthForwardGuard]},
       {path: '', loadChildren: ()=>import('./features/blog/blog.module').then(m=> m.BlogModule)}
     ]
   }

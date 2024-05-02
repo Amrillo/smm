@@ -6,12 +6,14 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PhoneValidatorDirective } from './directives/phone-validator.directive';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AuthAccountComponent } from './components/auth-account/auth-account.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
 
 @NgModule({
   declarations: [
     OrderCallComponent,
     PhoneValidatorDirective,
     AuthAccountComponent,
+    ArticleCardComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,6 @@ import { AuthAccountComponent } from './components/auth-account/auth-account.com
     MatSnackBarModule,
     HttpClientModule
   ],
-  exports : [OrderCallComponent, PhoneValidatorDirective, AuthAccountComponent ]
+  exports : [OrderCallComponent, PhoneValidatorDirective, AuthAccountComponent, ArticleCardComponent ]
 })
 export class SharedModule { }

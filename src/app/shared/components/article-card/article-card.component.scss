@@ -1,0 +1,50 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+     .article-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: normal;
+    
+        &__image {
+          position: relative;
+          width: 100%;
+          height: 291px;
+          background-position: center;
+          background-size: cover;
+          margin-bottom: 15px;
+        }
+
+        &__category {
+            position: absolute;
+            top: 10px;
+            right: 9px;
+            width: 89px;
+            height: 34px;
+            padding: 10px 18px;
+            background-color: $primary-white-color;
+            color: $primary-light-color;
+            font-size: 11px;
+            border-radius: 5px;
+         }
+
+          .card-title {
+            margin-bottom: 20px;
+          }
+    
+          a {
+            font-size: 16px;
+            color: $primary-light-color;
+            text-decoration: underline;
+            margin-top: auto;
+            display: inline-block;
+          }
+    
+        &__text {
+           line-height: 18px;
+           margin-bottom: 64px;
+        }
+    }
+
+

@@ -78,7 +78,7 @@ export class MainComponent implements OnInit {
           .subscribe((data: ArticlesType[])=> {
             this.topArticles = data ;
             console.log(data);
-          })
+        })
     }
     putOrder(category: string) {
       this.orderCallService.setCategory(category);
