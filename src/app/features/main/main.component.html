@@ -86,7 +86,7 @@
     <div class="container">
         <h2 class="sub-title">Популярные статьи из блога</h2>
         <div class="articles__list">
-            <article-card  [article]="article" *ngFor="let article  of topArticles"></article-card>
+            <article-card style="display: flex;"  [article]="article" *ngFor="let article  of topArticles"></article-card>
         </div>
         <a routerLink="/blog" class="articles__passlink">
             <span> Перейти в блог</span>
