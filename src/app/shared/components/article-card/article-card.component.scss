@@ -5,7 +5,7 @@
         height: -webkit-fill-available;
         display: flex;
         flex-direction: column;
-    
+
         &__image {
           position: relative;
           width: 100%;
@@ -19,7 +19,7 @@
             position: absolute;
             top: 10px;
             right: 9px;
-            width: 89px;
+            min-width: 89px;
             height: 34px;
             padding: 10px 18px;
             background-color: $primary-white-color;
@@ -32,7 +32,7 @@
             margin-bottom: 20px;
             min-height: 163px;
           }
-    
+
           a {
             font-size: 16px;
             color: $primary-light-color;
@@ -40,7 +40,7 @@
             margin-top: auto;
             display: inline-block;
           }
-    
+
         &__text {
            line-height: 18px;
            margin-bottom: 64px;

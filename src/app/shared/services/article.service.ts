@@ -17,8 +17,8 @@ export class ArticleService {
         return this.http.get<ArticlesType[]>(environment.api + 'articles/top');
     }
 
-    getAllArticles(params: ActiveParamsType): Observable<ArticlesAllType> {   
-       return this.http.get<ArticlesAllType>(environment.api + 'articles', {   
+    getAllArticles(params: ActiveParamsType): Observable<ArticlesAllType> {
+       return this.http.get<ArticlesAllType>(environment.api + 'articles', {
         params: params
        });
     }
