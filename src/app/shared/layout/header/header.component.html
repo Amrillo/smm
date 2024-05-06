@@ -5,13 +5,13 @@
       </a>
       <ul class="menu">
           <li class="menu__item">
-                <a routerLink="" routerLinkActive="active"  fragment="services" >Услуги</a>
+                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  fragment="services" >Услуги</a>
           </li>
           <li class="menu__item">
               <a routerLink="" fragment="aboutus">О нас</a>
           </li>
           <li class="menu__item">
-              <a routerLink="/blogs">Статьи</a>
+              <a routerLink="/blog" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Статьи</a>
           </li>
           <li class="menu__item">
               <a routerLink=""  fragment="reviews"   >Отзывы</a>

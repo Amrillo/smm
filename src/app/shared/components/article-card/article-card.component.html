@@ -6,6 +6,6 @@
     </div>
     <h3 class="card-title">{{article.title}}</h3>
     <p class="article-card__text">{{article.description}}</p>
-    <a>Читать дальше</a>
+    <a  [routerLink]="['/articles/',article.url]">Читать дальше</a>
 </div>
 
