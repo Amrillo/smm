@@ -23,4 +23,8 @@ export class ArticleService {
        });
     }
 
+    getRelatedArticles(url:string):Observable<ArticlesType[]> {  
+       return this.http.get<ArticlesType[]>(environment.api + 'articles/related/' +  url );
+    }
+
 }
