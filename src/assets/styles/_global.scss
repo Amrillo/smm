@@ -43,7 +43,10 @@ input[type="password"]{
      outline: none;
    }
 }
-
+button {  
+  border: 0;
+  background-color: transparent;
+}
 input.ng-touched.ng-valid  {
   border: 2px solid #42A948;
 }
