@@ -14,6 +14,8 @@ import { SharedModule } from './shared/shared.module';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import { AuthInterceptor } from './core/auth.interceptor';
+import { CommonModule, DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { AuthInterceptor } from './core/auth.interceptor';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     CarouselModule,
@@ -37,7 +40,8 @@ import { AuthInterceptor } from './core/auth.interceptor';
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    [DatePipe],
   ],
   bootstrap: [AppComponent]
 })
