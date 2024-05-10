@@ -1,0 +1,81 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+ .comments {  
+    width: 100%;
+    
+    &__user-info {  
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-bottom: 24px;
+
+        .comments__image {
+            position: relative; 
+            margin-right: 26px;
+            width: 60px;
+            height: 60px;
+            img {  
+                position: absolute;
+                
+                &:last-child {  
+                    z-index: 5;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    background-color: transparent;
+                }
+            }
+        }
+        .comments__personal-info {  
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            span {  
+                font-weight: 600;
+                display: inline-block;
+                
+                &:first-child {  
+                    font-size: 20px;
+                    color: $primary-light-color;
+                    margin-bottom: 10px;
+                }
+                &:last-child {  
+                    color: #BEBEBE;
+                    margin-bottom: 0;
+                }
+            }
+        }
+      }
+
+      p { 
+        color: $primary-dark-color;
+        line-height: 19px;
+        margin-bottom: 39px;
+      }
+
+      &__reactions {  
+        width: 126px;
+        @include flex-spc-betw;
+        margin-bottom: 60px;
+
+        .comments__reaction {  
+            margin-right: 15px;
+            @include flex-center;
+            cursor: pointer;
+            span {  
+                margin-right: 3px;
+            }
+            a {   
+              &.active svg path {  
+                stroke: $primary-light-color;
+              }  
+            }
+        }
+      }
+ }
+   
+
+
+ 

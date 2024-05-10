@@ -1,14 +1,16 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { combineLatest, switchMap} from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { ArticleDetailedType } from 'src/types/article-detail.type';
 import { ArticlesType } from 'src/types/articles.type';
+import { CommentType } from 'src/types/comment.type';
 import { CommentsAllType } from 'src/types/comments-all.type';
 import { DefaultResponseType } from 'src/types/default-response.type';
 
@@ -24,14 +26,21 @@ export class ArticleComponent implements OnInit {
    defaultCount: number = 3 ;
    relatedArticles: ArticlesType[] = [];
    articleInfo: ArticleDetailedType | null = null;
-   allComments!: CommentsAllType ;
+   allComments!: CommentType[] ;
    isLogged: boolean = false ;
     constructor(private articleS: ArticleService, private _snackBar: MatSnackBar,
-    private activRoute: ActivatedRoute, private authService: AuthService , private commentsService: CommentsService,
-    private datePipe: DatePipe) { }
+    private activRoute: ActivatedRoute, private authService: AuthService , private commentsService: CommentsService, 
+    private router: Router) { }
 
+    commentForm = {  
+      comment: ''
+    }
   ngOnInit(): void {
 
+      this.processMainFunctions();
+
+  }
+  processMainFunctions():void {  
     this.activRoute.params.pipe(
       switchMap((params:Params)=> {
         this.urlWord = params['url'];
@@ -49,8 +58,6 @@ export class ArticleComponent implements OnInit {
           this.relatedArticles = relatedArticle as ArticlesType[];
           this.isLogged = this.authService.getIsLoggedIn();
           console.log(article);
-          console.log(relatedArticle);
-
           return this.commentsService.getAllComments(this.defaultCount,this.articleInfo.id);
       })
 
@@ -60,8 +67,12 @@ export class ArticleComponent implements OnInit {
           this._snackBar.open((comments as DefaultResponseType).message);
           throw new Error();
         }
-        this.allComments = comments as CommentsAllType;
-
+        const data = comments as CommentsAllType;
+        if(data.comments) {  
+          this.allComments = data.comments
+        }
+        
+        console.log(this.allComments);
       },
       error: (errorResponse:HttpErrorResponse)=> {
         this._snackBar.open("Ошибка при загрузки данных");
@@ -69,5 +80,22 @@ export class ArticleComponent implements OnInit {
       }
    })
   }
+
+  postComment():void {  
+     if(this.commentForm.comment && this.articleInfo &&  this.articleInfo.id) {  
+        this.commentsService.postComments({text:this.commentForm.comment, article: this.articleInfo.id})
+        .subscribe((data:DefaultResponseType)=> {   
+            console.log(data);
+            this.router.navigate(['/articles/', this.articleInfo?.url]);
+            this.processMainFunctions();
+        })
+     }
+  }
+
+    updateActions(value: boolean):void {  
+       if(value) {  
+          this.processMainFunctions();
+       } 
+    }
 
 }

@@ -9,6 +9,7 @@ import { AuthAccountComponent } from './components/auth-account/auth-account.com
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
+import { CommentCardComponent } from './components/comment-card/comment-card.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     PhoneValidatorDirective,
     AuthAccountComponent,
     ArticleCardComponent,
+    CommentCardComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,6 @@ import { RouterModule } from '@angular/router';
     RouterModule
 
   ],
-  exports : [OrderCallComponent, PhoneValidatorDirective, AuthAccountComponent, ArticleCardComponent ]
+  exports : [OrderCallComponent, PhoneValidatorDirective, AuthAccountComponent, ArticleCardComponent ,CommentCardComponent]
 })
 export class SharedModule { }

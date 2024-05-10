@@ -39,47 +39,10 @@ export class OrderCallComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // this.categoryS.getCategories()
-    //   .subscribe((data:CategoryType[])=>{
-    //       this.categoryTypes = data ;
-    //       this.activeIndex = -1;
-    //   }) // получения всех категорий
-
-    //   this.activatedRoute.queryParams
-    //   .pipe(
-    //      map((params)=> {
-    //         return ActiveParamsUtil.handleParams(params);
-    //     })
-    //   ) // обработка queryparams
-    //   .subscribe((activeParams: ActiveParamsType)=> {
-    //     console.log(activeParams);
-    //      this.articlesS.getAllArticles(activeParams)  // получение массива articles
-    //       .subscribe((data:ArticlesAllType)=> {
-    //          this.activeParams = activeParams ;
-    //          this.appliedFilters = [];
-    //          this.articles = data.items;
-    //          this.pages = [];
-    //         for(let i = 1; i <= data.pages; i++ ){
-    //           this.pages.push(i);
-    //         }
-    //         this.activePage = 1;
-    //         // обработка выбранных филтиров
-    //           if(this.activeParams.category) {
-    //             this.categoryTypes.forEach(category=> {
-    //               if(activeParams.category.some(item=> item === category.url)) {
-    //                   this.appliedFilters.push(category);
-    //               }
-    //            })
-    //          }
-    //       })
-    //     }
-    //   )
-
       this.orderCallService.order$
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((data:boolean)=> {
           this.showOrder = data ;
-
       });
 
       this.orderCallService.string$
@@ -97,7 +60,6 @@ export class OrderCallComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((data: CategoryType[])=>{
           this.categories = data ;
-          console.log(data);
       });
   };
 
