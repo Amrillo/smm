@@ -1,102 +1,102 @@
 @import "../../../../assets/styles/variables";
 @import "../../../../assets/styles/mixins";
 
-.article {  
+.article {
     padding-top: 80px;
 
-    &__sub-title {  
+    &__sub-title {
         font-size: 16px;
         margin-bottom: 60px;
-        span {  
-            &:first-child {  
+        span {
+            &:first-child {
                 color:#B9D5FD;
                 margin-right: 8px;
             }
-            &:last-child{ 
+            &:last-child{
                 color: $primary-light-color;
                 font-weight:500;
              }
         }
     }
 
-    &__info {  
+    &__info {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: 60px;
 
-        &-title {  
+        &-title {
             max-width: 607px;
             margin-right: 106px;
 
-            h2 {  
+            h2 {
                 margin-bottom: 40px;
             }
         }
-        &-text {  
+        &-text {
             font-size: 20px;
-            color: $primary-light-color;    
+            color: $primary-light-color;
         }
-        &-img {  
+        &-img {
              max-width: 527px;
-             img {  
+             img {
                 max-width: 100%;
                 object-fit: cover;
              }
-        } 
+        }
     }
 
-    &__content {  
+    &__content {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: 60px;
-        
-        &-text {  
+
+        &-text {
            color: $primary-dark-color;
            max-width: 818px;
            margin-right: 130px;
 
-           &::ng-deep h3 {  
+           &::ng-deep h3 {
             font-size: 20px;
             color: $primary-light-color;
             font-weight: 500;
             margin-bottom: 20px;
            }
 
-           &::ng-deep p {  
+           &::ng-deep p {
                 margin-bottom: 20px;
                 line-height: 18px;
-                &:first-child {  
+                &:first-child {
                     margin-bottom: 40px;
                 }
-                &:last-child {  
+                &:last-child {
                     margin-bottom: 0;
                 }
             }
         }
-        &-card {  
+        &-card {
             margin-bottom: 60px;
 
-            &:last-child {  
+            &:last-child {
                 margin-bottom: 0;
             }
         }
 
-        &-extra {  
+        &-extra {
             padding-top: 60px;
             max-width: 292px;
             display: flex;
             flex-direction: column;
 
-            .card-title {  
+            .card-title {
                 margin-bottom: 20px;
             }
 
-            &-card {  
+            &-card {
                 margin-bottom: 60px;
 
-                &:last-child {  
+                &:last-child {
                     margin-bottom: 0;
                 }
             }
@@ -104,80 +104,88 @@
     }
 }
 
-.comments {  
+.comments {
         padding-bottom: 120px;
-     &__socials {  
+
+     &__socials {
 
         display: flex;
         align-items: center;
         justify-content: flex-start;
         margin-bottom: 60px;
-        a {  
+        a {
             margin-right: 20px;
             color: $primary-light-color;
             font-weight: 500;
         }
-        div {  
+        div {
             @include flex-spc-betw;
 
-            a {  
+            a {
                 margin-right: 13px;
             }
         }
      }
 
-     h2 {  
+     h2 {
         margin-bottom: 20px;
      }
 
-      p {  
+      p {
         margin-bottom: 60px;
-        a {  
+        a {
             color: $primary-light-color;
         }
       }
-      &__fields {  
+      &__fields {
         max-width: 818px;
         margin-bottom: 60px;
 
-         textarea {  
+         textarea {
             padding: 20px;
             margin-bottom: 20px;
 
-            &::placeholder {  
+            &::placeholder {
                 color:#A8ABA7;
             }
          }
-         button {  
+         button {
             width: 422px;
             padding: 15px 91px;
 
-            &:disabled {  
+            &:disabled {
                 background-color: gray;
             }
          }
       }
-      
-      &__users {  
+
+      &__users {
         max-width: 854px;
       }
-     
 
-      &__loader {  
+
+      &__loader {
           max-width: 350px;
-          @include flex-center; 
-          align-items: flex-start; 
+          @include flex-center;
+          align-items: flex-start;
           cursor: pointer;
           margin-bottom: 39px;
         span {
             color: $primary-light-color;
             font-size: 20px;
-            font-weight: 500; 
+            font-weight: 500;
             margin-right: 10px;
         }
-        button {  
+        button {
             cursor: pointer;
         }
+      }
+
+      &__messageNo {
+         font-size: 20px;
+         span {
+           color: $primary-dark-color;
+         }
       }
 }
 
