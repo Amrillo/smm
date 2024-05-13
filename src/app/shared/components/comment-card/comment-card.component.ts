@@ -18,18 +18,23 @@ export class CommentCardComponent implements OnInit {
   @Output() onActionChange: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
   @Input() activeAction: string | null = null;
   @Input() commentId: string | null = null;
-  @Input() commentAction: CommentActionType[] = [];
+  @Input() commentAction!: CommentActionType[];
 
   constructor(private commentsService: CommentsService, private _snackBar: MatSnackBar
    ) {}
 
   ngOnInit(): void {
-      console.log(this.commentAction);
-      const foundComment = this.commentAction.find(item=> item.comment === this.commentId);
-      if(foundComment) {
-         this.commentId = foundComment.comment;
-         this.activeAction = foundComment.action;
-      }
+
+    console.log(this.commentAction)
+    console.log(this.articleUrl);
+    console.log(this.comment);
+
+      // console.log(this.commentAction);
+      // const foundComment = this.commentAction.find(item=> item.comment === this.commentId);
+      // if(foundComment) {
+      //    this.commentId = foundComment.comment;
+      //    this.activeAction = foundComment.action;
+      // }
   }
 
   postAction(id:string, action: string):void {
@@ -39,6 +44,7 @@ export class CommentCardComponent implements OnInit {
           if(!data.error) {
             this._snackBar.open('Ваш голос учтен!');
             this.onActionChange.emit([id, action]);
+
           }
 
        },

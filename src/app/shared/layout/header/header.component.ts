@@ -18,10 +18,12 @@ export class HeaderComponent implements OnInit {
   userName: string = '';
 
   constructor(private authService : AuthService, private _snackBar: MatSnackBar, private router: Router) {
+
   }
 
   ngOnInit(): void {
     this.loggedIn = this.authService.getIsLoggedIn();
+    console.log(this.loggedIn)
       if(this.loggedIn) {
         this.authService.getUserInfo()
         .subscribe({
@@ -38,11 +40,15 @@ export class HeaderComponent implements OnInit {
           error: (errorResponse: HttpErrorResponse)=> {
               if(errorResponse.error && errorResponse.error.message) {
                 this._snackBar.open(errorResponse.error.message);
+                 this.doLogOut();
               } else {
                 this._snackBar.open('Не удалось получить имя пользователя')
+                this.doLogOut();
           }
         }
       })
+    } else {  
+       this.router.navigate([''])
     }
     this.authService.isLogged$.subscribe((isloggedIn:boolean)=>{
       this.loggedIn = isloggedIn;

@@ -65,13 +65,13 @@
          <div class="comments__users">
               <comment-card [comment]="comment" [articleUrl]="articleInfo.url"
                   (onActionChange)="updateActions($event)"
-                  *ngFor="let comment of articleInfo.comments" [commentAction]="this.commentsAction"
+                  *ngFor="let comment of articleInfo.comments" [commentAction]="commentsAction"
                   [activeAction]="activeAction" [commentId]="commentId">
               </comment-card>
          </div>
           <div class="comments__users" *ngIf="commentsShow">
               <comment-card [comment]="comment" [articleUrl]="articleInfo.url"
-                  (onActionChange)="updateActions($event)" [commentAction]="this.commentsAction"
+                  (onActionChange)="updateActions($event)" [commentAction]="commentsAction"
                   *ngFor="let comment of allComments" [activeAction]="activeAction" [commentId]="commentId">
               </comment-card>
           </div>

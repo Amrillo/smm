@@ -27,9 +27,7 @@ export class AuthAccountComponent implements OnInit {
 })
   ngOnInit(): void {
 
-
   }
-
     passToLogin() {
       this.router.navigate(['/login']);
     }
@@ -50,7 +48,7 @@ export class AuthAccountComponent implements OnInit {
                   this._snackBar.open(error);
                   throw new Error(error);
                }
-              const loginResponse = data as LoginResponseType ;
+               const loginResponse = data as LoginResponseType ;
                this.processAuthorization(loginResponse, 'Вы успешно зарегистрировались')
              },
              error: (errorResponse: HttpErrorResponse)=> {
@@ -93,6 +91,6 @@ export class AuthAccountComponent implements OnInit {
         this.authService.setTokens(data.accessToken, data.refreshToken)
         this.authService.userId = data.userId ;
         this._snackBar.open(text);
-        this.router.navigateByUrl('/');
+        this.router.navigate(['/']);
     }
 }
