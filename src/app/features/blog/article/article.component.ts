@@ -1,15 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { catchError, combineLatest, EMPTY, map, Observable, switchMap, VirtualTimeScheduler} from 'rxjs';
+import {combineLatest, switchMap} from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
-import { ActiveActionsType } from 'src/types/active-actions.type';
 import { ArticleDetailedType } from 'src/types/article-detail.type';
 import { ArticlesType } from 'src/types/articles.type';
-import { CommentActionType } from 'src/types/comment-action.type';
 import { CommentType } from 'src/types/comment.type';
 import { CommentsAllType } from 'src/types/comments-all.type';
 import { DefaultResponseType } from 'src/types/default-response.type';
@@ -27,7 +25,6 @@ export class ArticleComponent implements OnInit  {
    relatedArticles: ArticlesType[] = [];
    articleInfo: ArticleDetailedType | null = null;
    allComments!: CommentType[] ;
-   commentsAction: CommentActionType[] = [];
    isLogged: boolean = false ;
    opened: boolean = false ;
    commentsShow:boolean = false;
@@ -45,8 +42,6 @@ export class ArticleComponent implements OnInit  {
 
   ngOnInit(): void {
       this.processMainFunctions();
-      console.log(this.commentsAction)
-      console.log(this.allComments)
   }
 
   processMainFunctions():void {
@@ -66,33 +61,25 @@ export class ArticleComponent implements OnInit  {
           this.articleInfo = article as ArticleDetailedType;
           this.relatedArticles = relatedArticle as ArticlesType[];
           this.isLogged = this.authService.getIsLoggedIn();
-          console.log(article);
-          return combineLatest([
-            this.commentsService.getAllComments(this.defaultCount,this.articleInfo.id),
-            this.getCommentsAction(this.articleInfo.id)
-          ]) 
+          return this.commentsService.getAllComments(this.defaultCount,this.articleInfo.id);
       })
     ).subscribe({
-      next:([data1,data])=>{
+      next:(data1)=>{
         if((data1 as DefaultResponseType).error !== undefined) {
           this._snackBar.open((data1 as DefaultResponseType).message);
           throw new Error();
         }
-        
         const comments = data1 as CommentsAllType;
         if(comments.comments) {
           this.allComments = comments.comments;
           this.opened = true;
         }
-        this.commentsAction = data as CommentActionType[] ;
-        console.log(data)
       },
       error: (errorResponse:HttpErrorResponse)=> {
         this._snackBar.open("Ошибка при загрузки данных");
         throw new Error(errorResponse.error);
       }
    })
-
   }
 
     postComment():void {
@@ -154,27 +141,4 @@ export class ArticleComponent implements OnInit  {
         this.opened = false;
       }
     }
-
-
-    getCommentsAction(articleId: string): Observable<CommentActionType[]> {
-      return this.commentsService.getActionComments(articleId)
-        .pipe(
-          catchError((errorResponse: HttpErrorResponse) => {
-            if (errorResponse.error) {
-              this._snackBar.open('Ошибка при отправки данных');
-              throw new Error();
-            } 
-            return EMPTY; // Return an empty observable or throw an error as per your requirement
-          }),
-          map((data: CommentActionType[] | DefaultResponseType) => {
-            if ((data as DefaultResponseType).error) {
-              this._snackBar.open((data as DefaultResponseType).message);
-              throw new Error();
-            }
-            return data as CommentActionType[];
-          })
-        );
-    }
-
-    
 }

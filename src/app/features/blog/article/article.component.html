@@ -63,15 +63,15 @@
               <button type="submit" class="button" [disabled]="!commentForm.comment"  (click)="postComment()" >Опубликовать комментарий</button>
          </div>
          <div class="comments__users">
-              <comment-card [comment]="comment" [articleUrl]="articleInfo.url"
+              <comment-card [comment]="comment" [articleId]="articleInfo.id"
                   (onActionChange)="updateActions($event)"
-                  *ngFor="let comment of articleInfo.comments" [commentAction]="commentsAction"
+                  *ngFor="let comment of articleInfo.comments"
                   [activeAction]="activeAction" [commentId]="commentId">
               </comment-card>
          </div>
           <div class="comments__users" *ngIf="commentsShow">
-              <comment-card [comment]="comment" [articleUrl]="articleInfo.url"
-                  (onActionChange)="updateActions($event)" [commentAction]="commentsAction"
+              <comment-card [comment]="comment" [articleId]="articleInfo.id"
+                  (onActionChange)="updateActions($event)"
                   *ngFor="let comment of allComments" [activeAction]="activeAction" [commentId]="commentId">
               </comment-card>
           </div>

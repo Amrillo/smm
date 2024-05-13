@@ -5,6 +5,7 @@ import { DefaultResponseType } from 'src/types/default-response.type';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommentActionType } from 'src/types/comment-action.type';
+import { catchError, EMPTY, map, Observable } from 'rxjs';
 @Component({
   selector: 'comment-card',
   templateUrl: './comment-card.component.html',
@@ -14,29 +15,25 @@ export class CommentCardComponent implements OnInit {
 
 
   @Input() comment!: CommentType;
-  @Input() articleUrl: string = '';
+  @Input() articleId: string = '';
   @Output() onActionChange: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
   @Input() activeAction: string | null = null;
   @Input() commentId: string | null = null;
-  @Input() commentAction!: CommentActionType[];
 
   constructor(private commentsService: CommentsService, private _snackBar: MatSnackBar
    ) {}
-
   ngOnInit(): void {
-
-    console.log(this.commentAction)
-    console.log(this.articleUrl);
-    console.log(this.comment);
-
-      // console.log(this.commentAction);
-      // const foundComment = this.commentAction.find(item=> item.comment === this.commentId);
-      // if(foundComment) {
-      //    this.commentId = foundComment.comment;
-      //    this.activeAction = foundComment.action;
-      // }
+     this.getCommentsAction(this.articleId).pipe(
+         map(data=>{
+           return data.find(item=> item.comment === this.comment.id);
+         })
+     ).subscribe((data)=>{
+          if(data) {
+            this.activeAction = data.action;
+            this.commentId = data.comment;
+          }
+     })
   }
-
   postAction(id:string, action: string):void {
     this.commentsService.postReaction(id,action)
      .subscribe({
@@ -46,7 +43,6 @@ export class CommentCardComponent implements OnInit {
             this.onActionChange.emit([id, action]);
 
           }
-
        },
        error: (errorResponse: HttpErrorResponse)=> {
           if(errorResponse.error) {
@@ -60,26 +56,23 @@ export class CommentCardComponent implements OnInit {
    )
  }
 
-    // getCommentAction(commentId: string):void {
-    //     this.commentsService.getActionComment(commentId)
-    //     .subscribe( {
-    //       next: (data:CommentActionType | DefaultResponseType)=> {
-    //          if((data as DefaultResponseType).error) {
-    //            this._snackBar.open((data as DefaultResponseType).message);
-    //            throw new Error();
-    //          }
-    //          console.log(data);
-    //          this.commentAction = data as CommentActionType;
-    //       },
-    //       error: (errorResponse: HttpErrorResponse)=> {
-    //          if(errorResponse.error) {
-    //             this._snackBar.open('Жалоба отправлена');
-    //          } else {
-    //           this._snackBar.open('Ошибка при отправки данных')
-    //             throw new Error()
-    //          }
-    //       }
-    //     })
-    // }
-
+ getCommentsAction(articleId: string): Observable<CommentActionType[]> {
+  return this.commentsService.getActionComments(articleId)
+    .pipe(
+      catchError((errorResponse: HttpErrorResponse) => {
+        if (errorResponse.error) {
+          this._snackBar.open('Ошибка при отправки данных');
+          throw new Error();
+        }
+        return EMPTY; // Return an empty observable or throw an error as per your requirement
+      }),
+      map((data: CommentActionType[] | DefaultResponseType) => {
+        if ((data as DefaultResponseType).error) {
+          this._snackBar.open((data as DefaultResponseType).message);
+          throw new Error();
+        }
+        return data as CommentActionType[];
+      })
+    );
+  }
 }
