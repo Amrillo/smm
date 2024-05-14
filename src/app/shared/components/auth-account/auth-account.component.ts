@@ -15,6 +15,7 @@ import { LoginResponseType } from 'src/types/login-response.type';
 export class AuthAccountComponent implements OnInit {
 
   @Input() registration: string = '';
+  hide:boolean = true; 
   constructor(private fb: FormBuilder, private router: Router,
      private authService: AuthService, private _snackBar: MatSnackBar) { }
 

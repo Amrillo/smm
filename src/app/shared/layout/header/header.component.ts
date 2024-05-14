@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { DefaultResponseType } from 'src/types/default-response.type';
 import { UserInfoType } from 'src/types/user-info.type';
@@ -47,8 +46,6 @@ export class HeaderComponent implements OnInit {
           }
         }
       })
-    } else {  
-       this.router.navigate([''])
     }
     this.authService.isLogged$.subscribe((isloggedIn:boolean)=>{
       this.loggedIn = isloggedIn;

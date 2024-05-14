@@ -1,4 +1,4 @@
 export type DefaultResponseType = {
-  error: false,
+  error: boolean,
   message: string
 }

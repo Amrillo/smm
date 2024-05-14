@@ -9,7 +9,9 @@
 
     &__info {
 
-
+      mat-form-field {  
+         width: 422px;
+      }
        input {
         width: 100%;
        }
@@ -54,3 +56,5 @@
     }
 
 }
+
+ 

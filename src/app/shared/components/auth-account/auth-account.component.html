@@ -7,10 +7,15 @@
             <div *ngIf="userForm.get('name')?.errors?.['required']">Обязательное поле</div>
             <div *ngIf="userForm.get('name')?.errors?.['pattern']">Введите только буквы. Первая буква должно быт заглавним</div>
         </div>
-
+       
         <input type="email"  name="email" id="email" formControlName="email" placeholder="Электронная почта" email>
-        <input type="password"  name="password" id="password" formControlName="password" placeholder="Пароль">
-
+        <mat-form-field>
+            <input  name="password" id="password" formControlName="password" placeholder=" "  
+            matInput [type]="hide ? 'password' : 'text'" >
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
         <div *ngIf="registration === 'login'">
             <div class="user__info-checkbox" >
               <input type="checkbox" id="remember" formControlName="rememberMe">

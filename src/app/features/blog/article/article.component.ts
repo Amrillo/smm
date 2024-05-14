@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {combineLatest, switchMap} from 'rxjs';
+import {EMPTY, catchError, combineLatest, filter, switchMap, tap} from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
@@ -21,16 +21,17 @@ export class ArticleComponent implements OnInit  {
 
    relatedUrl: string = 'kak_borotsya_s_konkurentsiei_na_frilanse?';
    urlWord: string = '';
+   activeAction: string | null= null;
+   commentId: string | null= null;
    defaultCount: number = 3 ;
-   relatedArticles: ArticlesType[] = [];
-   articleInfo: ArticleDetailedType | null = null;
-   allComments!: CommentType[] ;
+   count: number = 0;
    isLogged: boolean = false ;
    opened: boolean = false ;
    commentsShow:boolean = false;
-   count: number = 0;
-   activeAction: string | null= null;
-   commentId: string | null= null;
+   relatedArticles: ArticlesType[] = [];
+   articleInfo: ArticleDetailedType | null = null;
+   allComments!: CommentType[] ;
+
 
     constructor(private articleS: ArticleService, private _snackBar: MatSnackBar,
     private activRoute: ActivatedRoute, private authService: AuthService , private commentsService: CommentsService,
@@ -43,43 +44,48 @@ export class ArticleComponent implements OnInit  {
   ngOnInit(): void {
       this.processMainFunctions();
   }
-
   processMainFunctions():void {
     this.activRoute.params.pipe(
-      switchMap((params:Params)=> {
+      switchMap((params: Params) => {
         this.urlWord = params['url'];
         return combineLatest([
           this.articleS.getArticle(this.urlWord),
           this.articleS.getRelatedArticles(this.urlWord)
         ]);
       }),
-      switchMap(([article, relatedArticle])=> {
-          if(!article || !relatedArticle) {
-            this._snackBar.open('Данные не загрузились');
-              throw new Error();
-          }
-          this.articleInfo = article as ArticleDetailedType;
-          this.relatedArticles = relatedArticle as ArticlesType[];
-          this.isLogged = this.authService.getIsLoggedIn();
-          return this.commentsService.getAllComments(this.defaultCount,this.articleInfo.id);
-      })
-    ).subscribe({
-      next:(data1)=>{
-        if((data1 as DefaultResponseType).error !== undefined) {
-          this._snackBar.open((data1 as DefaultResponseType).message);
-          throw new Error();
+      tap(([article, relatedArticle]) => {
+        if (!article || !relatedArticle) {
+          this._snackBar.open('Данные не загрузились');
+          throw new Error('Data not loaded');
         }
-        const comments = data1 as CommentsAllType;
-        if(comments.comments) {
+        this.articleInfo = article as ArticleDetailedType;
+        this.relatedArticles = relatedArticle as ArticlesType[];
+        this.isLogged = this.authService.getIsLoggedIn();
+      }),
+      switchMap(() => {
+        if(this.articleInfo) {  
+          return this.commentsService.getAllComments(this.defaultCount, this.articleInfo.id).pipe(
+            catchError((errorResponse: HttpErrorResponse) => {
+              this._snackBar.open('Ошибка при загрузке данных');
+              throw new Error(errorResponse.error);
+            })
+          );
+        } else {  
+          return EMPTY
+        }
+      }),
+      tap((data: CommentsAllType | DefaultResponseType) => {
+        const errorText = data as DefaultResponseType
+         if(errorText.error) {  
+            this._snackBar.open(errorText.message);
+         }
+         const comments = data as CommentsAllType; 
+        if (comments.comments.length) {
           this.allComments = comments.comments;
           this.opened = true;
         }
-      },
-      error: (errorResponse:HttpErrorResponse)=> {
-        this._snackBar.open("Ошибка при загрузки данных");
-        throw new Error(errorResponse.error);
-      }
-   })
+      })
+    ).subscribe();
   }
 
     postComment():void {
@@ -94,7 +100,7 @@ export class ArticleComponent implements OnInit  {
     }
 
     updateActions([id, action]:string[]):void {
-      if(action && id) {
+      if(action && id && this.isLogged) {
         this.articleS.getArticle(this.urlWord)
         .pipe(
           switchMap((data: ArticleDetailedType)=> {
@@ -120,12 +126,12 @@ export class ArticleComponent implements OnInit  {
               }
             }
           )
-            if(this.activeAction === action && this.commentId === id) {
-               this.activeAction = null;
-            }  else  {
-                this.activeAction = action;
-                this.commentId = id;
-            }
+        if(this.activeAction === action && this.commentId === id) {
+            this.activeAction = null;
+        }  else  {
+            this.activeAction = action;
+            this.commentId = id;
+        }
       }
     }
 
