@@ -10,7 +10,7 @@
        
         <input type="email"  name="email" id="email" formControlName="email" placeholder="Электронная почта" email>
         <mat-form-field>
-            <input  name="password" id="password" formControlName="password" placeholder=" "  
+            <input  name="password" id="password" formControlName="password" placeholder="Пароль"  
             matInput [type]="hide ? 'password' : 'text'" >
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
