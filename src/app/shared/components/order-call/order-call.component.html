@@ -26,8 +26,7 @@
             <p *ngIf="orderForm.get('name')?.errors?.['required']">Обязательное поле</p>
             <p *ngIf="orderForm.get('name')?.errors?.['minlength']">Слова не должна состоит не менее 3 слов</p>
           </div>
-          <input type="text" class="order-call__input" placeholder="Ваш номер телефона" id="phone" name="phone" 
-             prefix="+7"  [specialCharacters]="[ '(' ,')', ' ', '-' ]" mask="(000) 000-00-00"    
+          <input type="text" class="order-call__input" placeholder="Ваш номер телефона" id="phone" name="phone"
               formControlName ="phone"  required>
           <div class="show-error" *ngIf="orderForm.get('phone')?.invalid && (orderForm.get('phone')?.dirty || orderForm.get('phone')?.touched)">
               <p *ngIf="orderForm.get('phone')?.errors?.['required']">Обязательное поле</p>

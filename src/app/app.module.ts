@@ -16,6 +16,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgxMaskModule } from 'ngx-mask';
+import { PolicyComponent } from './features/policy/policy.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NgxMaskModule } from 'ngx-mask';
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
-    MainComponent
+    MainComponent,
+    PolicyComponent
   ],
   imports: [
     BrowserModule,

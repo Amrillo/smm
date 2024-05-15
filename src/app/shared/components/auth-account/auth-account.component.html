@@ -7,10 +7,10 @@
             <div *ngIf="userForm.get('name')?.errors?.['required']">Обязательное поле</div>
             <div *ngIf="userForm.get('name')?.errors?.['pattern']">Введите только буквы. Первая буква должно быт заглавним</div>
         </div>
-       
+
         <input type="email"  name="email" id="email" formControlName="email" placeholder="Электронная почта" email>
         <div class="user__password">
-            <input class="user__password-input" name="password" id="password" formControlName="password" placeholder="Пароль"  
+            <input class="user__password-input" name="password" id="password" formControlName="password" placeholder="Пароль"
              [type]="hide ? 'password' : 'text'" >
             <button class="user__password-btn" (click)="togglePassword()">
               <svg *ngIf="hide"  class="hide-icon" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@
                 <input type="checkbox" id="agree" formControlName="agree">
                 <label for="agree">
                   Я принимаю
-                  <a href="#">условия пользовательского соглашения и даю согласие на обработку персональных данных.</a>
+                   <a routerLink="/policy">условия пользовательского соглашения</a> и даю <a routerLink="/policy" >согласие на обработку персональных данных.</a>
                 </label>
             </div>
             <button class="button" [disabled]="!userForm.valid" (click)="signup()">Зарегистрироваться</button>
