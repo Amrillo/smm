@@ -67,6 +67,7 @@ export class OrderCallComponent implements OnInit, OnDestroy {
       this.ngUnsubscribe.next();
       this.ngUnsubscribe.complete();
     }
+    
   closeOrder() {
       this.showOrder = false ;
       this.categoryValue = '';

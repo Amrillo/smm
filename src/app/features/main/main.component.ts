@@ -7,7 +7,6 @@ import { OrderModalService } from 'src/app/shared/services/order-modal.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ArticlesType } from 'src/types/articles.type';
 import { reviewsData } from 'src/constants/reviews-data';
-import { catchError } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
@@ -16,6 +15,7 @@ import { AuthService } from 'src/app/core/auth.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+    email: string = 'info@itstorm.com' ; 
 
   customOptions: OwlOptions = {
     loop: true,

@@ -8,6 +8,8 @@ import { OrderModalService } from '../../services/order-modal.service';
 })
 export class FooterComponent implements OnInit {
 
+  email: string = 'info@itstorm.com';
+
   constructor(private orderCallService: OrderModalService) { }
 
   ngOnInit(): void {

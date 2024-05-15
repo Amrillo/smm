@@ -23,6 +23,7 @@ export class ArticleComponent implements OnInit  {
    urlWord: string = '';
    activeAction: string | null= null;
    commentId: string | null= null;
+   loading: boolean = false ; 
    defaultCount: number = 3 ;
    count: number = 0;
    isLogged: boolean = false ;
@@ -73,8 +74,8 @@ export class ArticleComponent implements OnInit  {
         } else {  
           return EMPTY
         }
-      }),
-      tap((data: CommentsAllType | DefaultResponseType) => {
+      })
+    ).subscribe(((data: CommentsAllType | DefaultResponseType) => {
         const errorText = data as DefaultResponseType
          if(errorText.error) {  
             this._snackBar.open(errorText.message);
@@ -85,7 +86,7 @@ export class ArticleComponent implements OnInit  {
           this.opened = true;
         }
       })
-    ).subscribe();
+    );
   }
 
     postComment():void {
@@ -136,6 +137,10 @@ export class ArticleComponent implements OnInit  {
     }
 
     showComments():void {
+      this.loading = true;
+      setTimeout(()=> {  
+         this.loading = false; 
+      },500)
       if((this.allComments.length > this.count)) {
         if(this.allComments.length < 11) {
           this.opened = false;
@@ -147,4 +152,23 @@ export class ArticleComponent implements OnInit  {
         this.opened = false;
       }
     }
+
+    shareLink(event: Event):void {
+      const vkontakte = 'https://vk.com/share.php?url='
+      const facebook = 'https://www.facebook.com/sharer/sharer.php?u='
+      const insta = 'https://twitter.com/intent/tweet?url=https://site.ru&text='
+
+     let media = (event.target as HTMLInputElement).getAttribute('data-media');  
+    
+      if(media === 'vkontakte')  {  
+        window.open(vkontakte + this.articleInfo?.url + 'width=626,height=436');
+      }
+      if(media === 'facebook') {  
+        window.open(facebook + this.articleInfo?.url + 'width=626,height=436');
+      }
+      if(media === 'insta') {  
+        window.open(insta + this.articleInfo?.url + 'width=626,height=436');
+      }
+    
+    } 
 }

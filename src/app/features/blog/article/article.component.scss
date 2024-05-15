@@ -163,8 +163,7 @@
         max-width: 854px;
       }
 
-
-      &__loader {
+      &__dropdown {
           max-width: 350px;
           @include flex-center;
           align-items: flex-start;

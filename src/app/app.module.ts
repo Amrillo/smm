@@ -15,6 +15,7 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/materia
 import {MatMenuModule} from '@angular/material/menu';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { CommonModule, DatePipe } from '@angular/common';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { CommonModule, DatePipe } from '@angular/common';
     CarouselModule,
     HttpClientModule,
     SharedModule,
+    NgxMaskModule.forRoot(),
     MatSnackBarModule,
     MatMenuModule,
     BrowserAnimationsModule,

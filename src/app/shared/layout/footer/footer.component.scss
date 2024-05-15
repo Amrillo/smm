@@ -26,6 +26,8 @@
 
       &-item {
         margin-right: 60px;
+        display: flex;
+        flex-direction: column;
 
         &-title {
           margin-bottom: 10px;
@@ -35,6 +37,7 @@
 
         &-text {
           margin-bottom: 10px;
+          color: $primary-dark-color;
         }
 
         &:first-child {

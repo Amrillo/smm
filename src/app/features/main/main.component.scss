@@ -304,6 +304,10 @@
       h2 {
         margin-top: 15px;
       }
+
+      a {  
+        color: $primary-dark-color;
+      }
      &-text {
        max-width: 501px;
        display: flex;
@@ -329,6 +333,7 @@
 
         a {
           margin-right: 20px;
+         
           &:last-child {
             margin-right: 0;
           }
