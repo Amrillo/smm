@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
            const authReq = req.clone({
             headers: req.headers.set('x-auth', tokens.accessToken)
-           })
+           });
 
            return next.handle(authReq).pipe(
               catchError((error)=> {
@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
                  }
                   return throwError(()=> error);
               })
-           )
+           );
         }
         return next.handle(req);
    }
@@ -45,11 +45,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
               const refreshResult = result as LoginResponseType;
               if(!refreshResult.accessToken || !refreshResult.refreshToken || !refreshResult.userId) {
-                 error = "Ошибка авторизации"
+                 error = "Ошибка авторизации";
               }
 
               if(error) {
-                return throwError(()=> new Error(error))
+                return throwError(()=> new Error(error));
               }
 
               this.authService.setTokens(refreshResult.accessToken, refreshResult.refreshToken);
@@ -58,16 +58,16 @@ export class AuthInterceptor implements HttpInterceptor {
                 headers:req.headers.set('x-auth',  refreshResult.accessToken)
               });
 
-                return next.handle(authReq)
+                return next.handle(authReq);
            }),
             catchError(
                error=> {
                  this.authService.removeTokens();
                  this.authService.userId = null ; 
                  this.router.navigateByUrl('/');
-                 return throwError(()=> error)
+                 return throwError(()=> error);
                }
             )
-         )
+         );
     }
 }

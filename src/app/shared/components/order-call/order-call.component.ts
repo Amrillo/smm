@@ -30,7 +30,7 @@ export class OrderCallComponent implements OnInit, OnDestroy {
         name: new FormControl('', [Validators.required, Validators.minLength(3)]),
         phone: new FormControl(''),
         category: new FormControl(''),
-    })
+    });
 
     private ngUnsubscribe = new Subject<void>();
 
@@ -101,14 +101,14 @@ export class OrderCallComponent implements OnInit, OnDestroy {
             phone: this.orderForm.value.phone ,
             service: this.orderForm.value.category,
             type: this.orderType,
-          }
+          };
         } else {
           if(this.orderForm.valid && this.orderForm.value.name && this.orderForm.value.phone ) {
               const params: RequestOrderType = {
                 name: this.orderForm.value.name,
                 phone: this.orderForm.value.phone ,
                 type: this.orderType,
-              }
+              };
           }
         }
         if(this.params) {
@@ -118,7 +118,7 @@ export class OrderCallComponent implements OnInit, OnDestroy {
               next:  (data:DefaultResponseType)=> {
                   if(data.error) {
                     this._snackBar.open(data.message);
-                    throw new Error(data.message)
+                    throw new Error(data.message);
                   }
                   this._snackBar.open("Запрос успешно отправлен!");
                   this.closeOrder();
@@ -134,7 +134,7 @@ export class OrderCallComponent implements OnInit, OnDestroy {
                   this.closeOrder();
                }
             }
-           )
+           );
         }
       }
     }

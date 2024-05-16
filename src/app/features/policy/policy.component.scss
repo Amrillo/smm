@@ -1,0 +1,42 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+
+
+.policy {  
+    padding-top: 60px;
+    padding-bottom: 80px;
+
+    &__agreement { 
+        color: $primary-dark-color;
+        margin-bottom: 40px;
+    }
+
+    h2 { 
+        margin-bottom: 40px; 
+        font-weight: 600;
+        text-transform:uppercase;
+        
+    }
+
+    h3 {  
+        font-size: 22px;
+        color: $primary-light-color;
+        margin-bottom: 20px;
+    }
+    p  {  
+        padding-bottom: 20px;
+        font-size: 18px;
+        color: $primary-dark-color;
+    }
+    ul {  
+        padding: 0 30px;
+
+        li {  
+            padding-bottom: 20px;
+            list-style-type: disc;
+            color: $primary-dark-color;
+            font-size: 18px;
+        }
+    }
+}

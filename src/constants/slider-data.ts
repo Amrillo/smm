@@ -20,4 +20,4 @@ export const sliderData = [
     image: 'slider3.png',
     category: 'Таргет'
   }
-]
+];

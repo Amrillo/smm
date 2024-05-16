@@ -9,6 +9,7 @@ import { AuthAccountComponent } from './components/auth-account/auth-account.com
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { RouterModule } from '@angular/router';
 import { CommentCardComponent } from './components/comment-card/comment-card.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 
@@ -25,6 +26,7 @@ import { CommentCardComponent } from './components/comment-card/comment-card.com
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    NgxMaskModule,
     HttpClientModule,
     RouterModule
 

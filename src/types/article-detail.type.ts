@@ -1,4 +1,4 @@
-import { CommentType } from "./comment.type"
+import { CommentType } from "./comment.type";
 
 export type ArticleDetailedType = {
   text: string,

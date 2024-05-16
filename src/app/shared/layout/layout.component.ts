@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit {
 
     this.orderModalService.string$.subscribe((data:string)=> {
            this.order = data ;
-    })
+    });
   }
 
 }

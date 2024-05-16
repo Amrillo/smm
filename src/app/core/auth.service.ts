@@ -23,11 +23,11 @@ export class AuthService {
   }
 
     login(email: string , password: string , rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
-       return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {email, password, rememberMe})
+       return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {email, password, rememberMe});
     }
 
     signup(name: string,email: string , password: string ): Observable<LoginResponseType | DefaultResponseType> {
-       return this.http.post<LoginResponseType | DefaultResponseType>(environment.api + 'signup', {name, email, password})
+       return this.http.post<LoginResponseType | DefaultResponseType>(environment.api + 'signup', {name, email, password});
     }
     logOut(): Observable<DefaultResponseType> {
       const refreshTokenKey = this.getTokens().refreshToken ;
@@ -41,7 +41,7 @@ export class AuthService {
    refreshPost():Observable<LoginResponseType | DefaultResponseType> {
         const refreshTokenKey = this.getTokens().refreshToken;
         if(refreshTokenKey) {
-          return this.http.post<LoginResponseType | DefaultResponseType>(environment.api + 'refresh', {refreshToken: refreshTokenKey})
+          return this.http.post<LoginResponseType | DefaultResponseType>(environment.api + 'refresh', {refreshToken: refreshTokenKey});
         }
         throw throwError(()=> 'Не получилось найти токен');
    }
@@ -55,7 +55,7 @@ export class AuthService {
             'Accept':  'application/json'
           });
         }
-        return this.http.get<UserInfoType | DefaultResponseType>(environment.api + 'users', {headers})
+        return this.http.get<UserInfoType | DefaultResponseType>(environment.api + 'users', {headers});
     }
 
    public setTokens(accessToken:string, refreshToken:string):void {
@@ -70,7 +70,7 @@ export class AuthService {
         return {
           accessToken: localStorage.getItem(this.accessTokenKey),
           refreshToken: localStorage.getItem(this.refreshTokenKey)
-        }
+        };
     }
 
     public removeTokens():void {

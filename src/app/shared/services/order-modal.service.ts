@@ -30,7 +30,7 @@ export class OrderModalService {
   }
   show() {
       this.order$.next(true);
-      this.category$.next(this.category)
+      this.category$.next(this.category);
   };
 
   hide() {

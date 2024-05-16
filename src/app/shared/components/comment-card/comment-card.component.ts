@@ -22,7 +22,7 @@ export class CommentCardComponent implements OnInit {
   @Input() activeAction: string | null = null;
   @Input() commentId: string | null = null;
 
-  @Output() onActionChange: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
+  @Output() ActionChange: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
 
   isViolateSent: boolean = false; 
 
@@ -57,15 +57,15 @@ export class CommentCardComponent implements OnInit {
               console.log(this.activeAction); 
                 if(this.activeAction && (action === 'like' || action === 'dislike')){  
                   this._snackBar.open('Ваш голос учтен!');
-                  this.onActionChange.emit([id, action]);
+                  this.ActionChange.emit([id, action]);
                 } else if((this.activeAction === null) && (action === 'like' || action === 'dislike')) {  
                   this._snackBar.open('Ваш голос удален!');
-                  this.onActionChange.emit([id, action]);
+                  this.ActionChange.emit([id, action]);
                 } else {  
                   this._snackBar.open('Жалоба отправлена!');
                 }
              } else {  
-               this._snackBar.open(data.message)
+               this._snackBar.open(data.message);
              }
           },
           error: (errorResponse: HttpErrorResponse)=> {
@@ -77,16 +77,16 @@ export class CommentCardComponent implements OnInit {
                   this._snackBar.open(errorResponse.error);
                 }
              } else {
-              this._snackBar.open('Ошибка при отправки данных')
-                throw new Error()
+              this._snackBar.open('Ошибка при отправки данных');
+                throw new Error();
              }
           }
         }
-      )} else { 
-        this._snackBar.open('Невозможно отправить жалобу')
+      );} else { 
+        this._snackBar.open('Невозможно отправить жалобу');
       }
     } else {  
-       this._snackBar.open('Спрева вам нужно пройти авторизацию')
+       this._snackBar.open('Спрева вам нужно пройти авторизацию');
     }
  }
 

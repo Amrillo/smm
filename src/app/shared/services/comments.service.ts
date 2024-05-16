@@ -22,7 +22,7 @@ export class CommentsService {
     getAllComments(quantity: number, id: string): Observable<CommentsAllType | DefaultResponseType>{
       let params = new HttpParams()
         .set('offset', quantity)
-        .set('article', id)
+        .set('article', id);
         return this.http.get<CommentsAllType | DefaultResponseType>(environment.api + 'comments',{params: params});
     }
 
@@ -63,7 +63,7 @@ export class CommentsService {
           headers = headers.set('x-auth', accessToken);
           headers = headers.set('Accept', 'application/json');
         }
-        const url = `${environment.api}comments/article-comment-actions?articleId=${articleId}`
+        const url = `${environment.api}comments/article-comment-actions?articleId=${articleId}`;
         return this.http.get<CommentActionType[] | DefaultResponseType>(url,{headers : headers});
   }
 }

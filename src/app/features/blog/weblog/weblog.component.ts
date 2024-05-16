@@ -61,7 +61,7 @@ export class WeblogComponent implements OnInit {
             tap((data:CategoryType[])=>{
               this.categoryTypes = data ;
             })
-          )
+          );
        })
     )
     .subscribe(()=> {
@@ -70,9 +70,9 @@ export class WeblogComponent implements OnInit {
           if(this.activeParams.category.some(item=> item === category.url)) {
               this.appliedFilters.push(category);
           }
-       })
+       });
      }
-    })
+    });
   }
 
   toggleSorting():void {
@@ -86,7 +86,7 @@ export class WeblogComponent implements OnInit {
       console.log(this.activeParams);
       this.router.navigate(['/blog'], {
       queryParams: activeParams
-    })
+    });
 
 
   }
@@ -94,7 +94,7 @@ export class WeblogComponent implements OnInit {
     this.activeParams.category = this.activeParams.category.filter(item=> item !== categoryUrl);
      this.router.navigate(['/blog'], {
        queryParams:  this.activeParams
-    })
+    });
   }
 
   removeFilter(value:string):void {
@@ -103,7 +103,7 @@ export class WeblogComponent implements OnInit {
         this.activeParams.category = this.activeParams.category.filter(item=> item !== value);
         this.router.navigate(['/blog'], {
         queryParams:  this.activeParams
-      })
+      });
       this.activePage = 1 ;
     }
   }
@@ -116,16 +116,16 @@ export class WeblogComponent implements OnInit {
     this.activeParams.page = page ;
     this.router.navigate(['/blog'], {
        queryParams:  this.activeParams
-    })
+    });
   }
 
   goToPrev():void {
     if(this.activePage !== 1) {
-      this.activePage--
+      this.activePage--;
       this.activeParams.page = this.activePage;
       this.router.navigate(['/blog'], {
         queryParams:  this.activeParams
-     })
+     });
     }
   }
     goToNext():void {
@@ -134,7 +134,7 @@ export class WeblogComponent implements OnInit {
         this.activeParams.page = this.activePage;
         this.router.navigate(['/blog'], {
           queryParams:  this.activeParams
-       })
+       });
       }
     }
 

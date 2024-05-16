@@ -40,7 +40,7 @@ export class ArticleComponent implements OnInit  {
 
     commentForm = {
       comment: ''
-    }
+    };
 
   ngOnInit(): void {
       this.processMainFunctions();
@@ -54,29 +54,29 @@ export class ArticleComponent implements OnInit  {
           this.articleS.getRelatedArticles(this.urlWord)
         ]);
       }),
-      tap(([article, relatedArticle]) => {
+      switchMap(([article, relatedArticle]) => {
         if (!article || !relatedArticle) {
           this._snackBar.open('Данные не загрузились');
           throw new Error('Data not loaded');
         }
+
         this.articleInfo = article as ArticleDetailedType;
         this.relatedArticles = relatedArticle as ArticlesType[];
         this.isLogged = this.authService.getIsLoggedIn();
-      }),
-      switchMap(() => {
+
         if(this.articleInfo) {  
-          return this.commentsService.getAllComments(this.defaultCount, this.articleInfo.id).pipe(
-            catchError((errorResponse: HttpErrorResponse) => {
-              this._snackBar.open('Ошибка при загрузке данных');
-              throw new Error(errorResponse.error);
-            })
-          );
-        } else {  
-          return EMPTY
-        }
-      })
+          return this.commentsService.getAllComments(this.defaultCount, this.articleInfo.id);
+          } else {  
+            return EMPTY;
+          }
+         }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          this._snackBar.open('Ошибка при загрузке данных');
+          throw new Error(errorResponse.error);
+        })
     ).subscribe(((data: CommentsAllType | DefaultResponseType) => {
-        const errorText = data as DefaultResponseType
+      if(data) {  
+        const errorText = data as DefaultResponseType;
          if(errorText.error) {  
             this._snackBar.open(errorText.message);
          }
@@ -85,10 +85,10 @@ export class ArticleComponent implements OnInit  {
           this.allComments = comments.comments;
           this.opened = true;
         }
+       }
       })
     );
   }
-
     postComment():void {
       if(this.commentForm.comment && this.articleInfo &&  this.articleInfo.id) {
           this.commentsService.postComments({text:this.commentForm.comment, article: this.articleInfo.id})
@@ -96,17 +96,16 @@ export class ArticleComponent implements OnInit  {
               console.log(data);
               this.router.navigate(['/articles/', this.articleInfo?.url]);
               this.processMainFunctions();
-          })
+          });
       }
     }
-
     updateActions([id, action]:string[]):void {
       if(action && id && this.isLogged) {
         this.articleS.getArticle(this.urlWord)
         .pipe(
           switchMap((data: ArticleDetailedType)=> {
             this.articleInfo = data;
-            return this.commentsService.getAllComments(this.defaultCount,this.articleInfo.id)
+            return this.commentsService.getAllComments(this.defaultCount,this.articleInfo.id);
           })
         ).subscribe(
             {
@@ -126,7 +125,7 @@ export class ArticleComponent implements OnInit  {
                     throw new Error(errorResponse.error);
               }
             }
-          )
+          );
         if(this.activeAction === action && this.commentId === id) {
             this.activeAction = null;
         }  else  {
@@ -140,7 +139,7 @@ export class ArticleComponent implements OnInit  {
       this.loading = true;
       setTimeout(()=> {  
          this.loading = false; 
-      },500)
+      },500);
       if((this.allComments.length > this.count)) {
         if(this.allComments.length < 11) {
           this.opened = false;
@@ -154,9 +153,9 @@ export class ArticleComponent implements OnInit  {
     }
 
     shareLink(event: Event):void {
-      const vkontakte = 'https://vk.com/share.php?url='
-      const facebook = 'https://www.facebook.com/sharer/sharer.php?u='
-      const insta = 'https://twitter.com/intent/tweet?url=https://site.ru&text='
+      const vkontakte = 'https://vk.com/share.php?url=';
+      const facebook = 'https://www.facebook.com/sharer/sharer.php?u=';
+      const insta = 'https://twitter.com/intent/tweet?url=https://site.ru&text=';
 
      let media = (event.target as HTMLInputElement).getAttribute('data-media');  
     

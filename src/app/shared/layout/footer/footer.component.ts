@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { OrderModalService } from '../../services/order-modal.service';
 
 @Component({
@@ -6,15 +6,13 @@ import { OrderModalService } from '../../services/order-modal.service';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   email: string = 'info@itstorm.com';
 
   constructor(private orderCallService: OrderModalService) { }
 
-  ngOnInit(): void {
-  }
-
+  
   makeOrderCall() {
     this.orderCallService.show();
     this.orderCallService.footerOrder();

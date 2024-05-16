@@ -40,7 +40,7 @@ export class MainComponent implements OnInit {
       }
     },
     // nav: true
-  }
+  };
 
   customOptionsReview: OwlOptions = {
     loop: true,
@@ -65,7 +65,7 @@ export class MainComponent implements OnInit {
       }
     },
     // nav: true
-  }
+  };
   serviceCards = serviceCards;
   sliders = sliderData ;
   advantages = advantagesData ;
@@ -78,7 +78,7 @@ export class MainComponent implements OnInit {
           .subscribe((data: ArticlesType[])=> {
             this.topArticles = data ;
             console.log(data);
-        })
+        });
     }
     putOrder(category: string) {
       this.orderCallService.setCategory(category);

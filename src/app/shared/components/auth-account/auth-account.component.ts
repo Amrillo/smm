@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { FormBuilder,  Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { LoginResponseType } from 'src/types/login-response.type';
   templateUrl: './auth-account.component.html',
   styleUrls: ['./auth-account.component.scss']
 })
-export class AuthAccountComponent implements OnInit {
+export class AuthAccountComponent  {
 
   @Input() registration: string = '';
   hide:boolean = true; 
@@ -27,10 +27,8 @@ export class AuthAccountComponent implements OnInit {
     password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
     rememberMe: [false],
     agree: [false]
-})
-  ngOnInit(): void {
+});
 
-  }
     passToLogin() {
       this.router.navigate(['/login']);
     }
@@ -47,22 +45,22 @@ export class AuthAccountComponent implements OnInit {
              next: (data: DefaultResponseType | LoginResponseType)=> {
                let error = null;
                if((data as DefaultResponseType).error !== undefined) {
-                  error = (data as DefaultResponseType).message;
-                  this._snackBar.open(error);
-                  throw new Error(error);
+                  error = data as DefaultResponseType;
+                  this._snackBar.open(error.message);
+                  throw new Error();
                }
                const loginResponse = data as LoginResponseType ;
-               this.processAuthorization(loginResponse, 'Вы успешно зарегистрировались')
+               this.processAuthorization(loginResponse, 'Вы успешно зарегистрировались');
              },
              error: (errorResponse: HttpErrorResponse)=> {
                if(errorResponse.error && errorResponse.error.message) {
-                  this._snackBar.open(errorResponse.error.message)
+                  this._snackBar.open(errorResponse.error.message);
                } else {
                   this._snackBar.open('Ошибка регистрации');
                }
              }
            }
-          )
+          );
       }
     }
 
@@ -78,20 +76,20 @@ export class AuthAccountComponent implements OnInit {
                      throw new Error(error);
                   }
                   const loginResponse = data as LoginResponseType ;
-                  this.processAuthorization(loginResponse, 'Вы успешно вошли систему')
+                  this.processAuthorization(loginResponse, 'Вы успешно вошли систему');
                 },
                 error: (errorResponse: HttpErrorResponse)=> {
                   if(errorResponse.error && errorResponse.error.message) {
-                     this._snackBar.open(errorResponse.error.message)
+                     this._snackBar.open(errorResponse.error.message);
                   } else {
                      this._snackBar.open('Ошибка регистрации');
                   }
                 }
-          }  )
+          }  );
         }
     }
    private processAuthorization(data: LoginResponseType, text: string):void {
-        this.authService.setTokens(data.accessToken, data.refreshToken)
+        this.authService.setTokens(data.accessToken, data.refreshToken);
         this.authService.userId = data.userId ;
         this._snackBar.open(text);
         this.router.navigate(['/']);

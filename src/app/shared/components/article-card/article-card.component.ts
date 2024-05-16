@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ArticlesType } from 'src/types/articles.type';
 
 @Component({
@@ -6,16 +6,12 @@ import { ArticlesType } from 'src/types/articles.type';
   templateUrl: './article-card.component.html',
   styleUrls: ['./article-card.component.scss']
 })
-export class ArticleCardComponent implements OnInit {
+export class ArticleCardComponent  {
 
 
   @Input() article!: ArticlesType;
 
   constructor() { }
-
-  ngOnInit(): void {
-
-  }
 
 
 

@@ -17,12 +17,12 @@ export class HeaderComponent implements OnInit {
   userName: string = '';
 
   constructor(private authService : AuthService, private _snackBar: MatSnackBar, private router: Router) {
-
+     this.loggedIn = authService.getIsLoggedIn();
   }
 
   ngOnInit(): void {
     this.loggedIn = this.authService.getIsLoggedIn();
-    console.log(this.loggedIn)
+    console.log(this.loggedIn);
       if(this.loggedIn) {
         this.authService.getUserInfo()
         .subscribe({
@@ -33,19 +33,19 @@ export class HeaderComponent implements OnInit {
                 this._snackBar.open(error);
                 throw new Error(error);
               }
-              this.userName = (data as UserInfoType).name
-              console.log(data);
+              this.userName = (data as UserInfoType).name;
+              console.log(this.userName);
           },
           error: (errorResponse: HttpErrorResponse)=> {
               if(errorResponse.error && errorResponse.error.message) {
                 this._snackBar.open(errorResponse.error.message);
                  this.doLogOut();
               } else {
-                this._snackBar.open('Не удалось получить имя пользователя')
+                this._snackBar.open('Не удалось получить имя пользователя');
                 this.doLogOut();
           }
         }
-      })
+      });
     }
     this.authService.isLogged$.subscribe((isloggedIn:boolean)=>{
       this.loggedIn = isloggedIn;
@@ -61,14 +61,14 @@ export class HeaderComponent implements OnInit {
         error: ()=> {
           this.doLogOut();
         }
-      })
+      });
   };
 
    doLogOut():void {
       this.authService.removeTokens();
       this.authService.userId = null ;
       this._snackBar.open('Вы вышли из системы');
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login']);
    };
 
 }

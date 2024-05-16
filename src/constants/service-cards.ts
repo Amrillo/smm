@@ -27,4 +27,4 @@ export const serviceCards = [
     image: 'service4.png',
     category: 'Копирайтинг'
   },
-]
+];
