@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {EMPTY, catchError, combineLatest, filter, switchMap, tap} from 'rxjs';
+import {EMPTY, Subject, catchError, combineLatest, filter, switchMap, takeUntil, tap} from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
@@ -18,6 +18,8 @@ import { DefaultResponseType } from 'src/types/default-response.type';
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit  {
+
+   private $destroy = new Subject<void> ;
 
    relatedUrl: string = 'kak_borotsya_s_konkurentsiei_na_frilanse?';
    urlWord: string = '';
@@ -45,6 +47,13 @@ export class ArticleComponent implements OnInit  {
   ngOnInit(): void {
       this.processMainFunctions();
   }
+
+
+  ngOnDestroy(): void {
+    this.$destroy.next();
+    this.$destroy.complete();
+  }
+
   processMainFunctions():void {
     this.activRoute.params.pipe(
       switchMap((params: Params) => {
@@ -66,14 +75,14 @@ export class ArticleComponent implements OnInit  {
 
         if(this.articleInfo) {  
           return this.commentsService.getAllComments(this.defaultCount, this.articleInfo.id);
-          } else {  
-            return EMPTY;
-          }
+          } 
+          return EMPTY;
          }),
         catchError((errorResponse: HttpErrorResponse) => {
           this._snackBar.open('Ошибка при загрузке данных');
           throw new Error(errorResponse.error);
-        })
+        }),  
+        takeUntil(this.$destroy)
     ).subscribe(((data: CommentsAllType | DefaultResponseType) => {
       if(data) {  
         const errorText = data as DefaultResponseType;
@@ -92,13 +101,18 @@ export class ArticleComponent implements OnInit  {
     postComment():void {
       if(this.commentForm.comment && this.articleInfo &&  this.articleInfo.id) {
           this.commentsService.postComments({text:this.commentForm.comment, article: this.articleInfo.id})
+          .pipe(takeUntil(this.$destroy))
           .subscribe((data:DefaultResponseType)=> {
-              console.log(data);
+              if(data.error !== undefined) {  
+                 this._snackBar.open(data.message);
+                 throw new Error();
+              }
               this.router.navigate(['/articles/', this.articleInfo?.url]);
               this.processMainFunctions();
           });
       }
     }
+    
     updateActions([id, action]:string[]):void {
       if(action && id && this.isLogged) {
         this.articleS.getArticle(this.urlWord)
@@ -106,7 +120,8 @@ export class ArticleComponent implements OnInit  {
           switchMap((data: ArticleDetailedType)=> {
             this.articleInfo = data;
             return this.commentsService.getAllComments(this.defaultCount,this.articleInfo.id);
-          })
+          }),
+          takeUntil(this.$destroy)
         ).subscribe(
             {
               next: (data:CommentsAllType | DefaultResponseType)=> {
@@ -120,10 +135,10 @@ export class ArticleComponent implements OnInit  {
                   this.opened = true;
                 }
                 },
-                error: (errorResponse:HttpErrorResponse)=> {
-                    this._snackBar.open("Ошибка при загрузки данных");
-                    throw new Error(errorResponse.error);
-              }
+              error: (errorResponse:HttpErrorResponse)=> {
+                  this._snackBar.open("Ошибка при загрузки данных");
+                  throw new Error(errorResponse.error);
+                }
             }
           );
         if(this.activeAction === action && this.commentId === id) {
@@ -140,7 +155,9 @@ export class ArticleComponent implements OnInit  {
       setTimeout(()=> {  
          this.loading = false; 
       },500);
+
       if((this.allComments.length > this.count)) {
+
         if(this.allComments.length < 11) {
           this.opened = false;
         }
@@ -158,16 +175,11 @@ export class ArticleComponent implements OnInit  {
       const insta = 'https://twitter.com/intent/tweet?url=https://site.ru&text=';
 
      let media = (event.target as HTMLInputElement).getAttribute('data-media');  
+
+      if(media === 'vkontakte')window.open(vkontakte + this.articleInfo?.url + 'width=626,height=436');
     
-      if(media === 'vkontakte')  {  
-        window.open(vkontakte + this.articleInfo?.url + 'width=626,height=436');
-      }
-      if(media === 'facebook') {  
-        window.open(facebook + this.articleInfo?.url + 'width=626,height=436');
-      }
-      if(media === 'insta') {  
-        window.open(insta + this.articleInfo?.url + 'width=626,height=436');
-      }
+      if(media === 'facebook') window.open(facebook + this.articleInfo?.url + 'width=626,height=436');
     
+      if(media === 'insta')  window.open(insta + this.articleInfo?.url + 'width=626,height=436');
     } 
 }

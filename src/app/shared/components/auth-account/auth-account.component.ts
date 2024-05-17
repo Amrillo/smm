@@ -3,6 +3,7 @@ import { Component, Input} from '@angular/core';
 import { FormBuilder,  Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { DefaultResponseType } from 'src/types/default-response.type';
 import { LoginResponseType } from 'src/types/login-response.type';
@@ -15,6 +16,8 @@ import { LoginResponseType } from 'src/types/login-response.type';
 export class AuthAccountComponent  {
 
   @Input() registration: string = '';
+  private destroy$ = new Subject<void>();
+
   hide:boolean = true; 
 
 
@@ -41,6 +44,7 @@ export class AuthAccountComponent  {
       if(this.userForm.valid && this.userForm.value.name && this.userForm.value.email && this.userForm.value.password ) {
 
         this.authService.signup(this.userForm.value.name, this.userForm.value.email,this.userForm.value.password )
+        .pipe(takeUntil(this.destroy$))
            .subscribe( {
              next: (data: DefaultResponseType | LoginResponseType)=> {
                let error = null;
@@ -67,6 +71,7 @@ export class AuthAccountComponent  {
     login() {
         if(this.userForm.value.email && this.userForm.value.password && this.userForm.value.rememberMe) {
             this.authService.login(this.userForm.value.email,this.userForm.value.password,this.userForm.value.rememberMe)
+            .pipe(takeUntil(this.destroy$))
               .subscribe({
                 next: (data: DefaultResponseType | LoginResponseType)=> {
                   let error = null;
@@ -95,7 +100,14 @@ export class AuthAccountComponent  {
         this.router.navigate(['/']);
     }
 
-    togglePassword():void{  
+    togglePassword():void {  
         this.hide = !this.hide; 
     }
+
+    
+    ngOnDestroy() {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
 }

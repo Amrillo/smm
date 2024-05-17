@@ -5,7 +5,7 @@ import { DefaultResponseType } from 'src/types/default-response.type';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommentActionType } from 'src/types/comment-action.type';
-import { catchError, EMPTY, map, Observable, tap} from 'rxjs';
+import { catchError, EMPTY, map, Observable, Subject, takeUntil, tap} from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
 
@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/core/auth.service';
 })
 export class CommentCardComponent implements OnInit {
 
-
+  private destroy$ = new Subject<void>();
   @Input() comment!: CommentType;
   @Input() articleId: string = '';
   @Input() activeAction: string | null = null;
@@ -28,33 +28,29 @@ export class CommentCardComponent implements OnInit {
 
   constructor(private commentsService: CommentsService, private _snackBar: MatSnackBar, 
     private authService: AuthService
-   ) {
-
-   }
+   ) {}
 
   ngOnInit(): void {
      this.getCommentsAction(this.articleId).pipe(
-         map((data: CommentActionType[])=>{
-           return data.find(item=> item.comment === this.comment.id);
-         }), 
+         map((data: CommentActionType[] )=> data.find(item=> item.comment === this.comment.id)), 
          tap((data)=> {  
           if(data) {  
             this.activeAction = data.action;
             this.commentId = data.comment;
            }
-         })
+         }), 
+         takeUntil(this.destroy$)
      ).subscribe();
   }
   postAction(id:string, action: string):void {
     
     if(this.authService.getIsLoggedIn()) {  
-
       if(!this.isViolateSent && action !== 'violate') {  
         this.commentsService.postReaction(id,action)
-        .subscribe({
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({                    
           next: (data:DefaultResponseType)=> {
              if(!data.error) {
-              console.log(this.activeAction); 
                 if(this.activeAction && (action === 'like' || action === 'dislike')){  
                   this._snackBar.open('Ваш голос учтен!');
                   this.ActionChange.emit([id, action]);
@@ -90,8 +86,8 @@ export class CommentCardComponent implements OnInit {
     }
  }
 
- getCommentsAction(articleId: string): Observable<CommentActionType[]> {
-  return this.commentsService.getActionComments(articleId)
+ getCommentsAction(articleId: string): Observable<CommentActionType[] > {
+    return this.commentsService.getActionComments(articleId)
     .pipe(
       catchError((errorResponse: HttpErrorResponse) => {
         if (errorResponse.error) {
@@ -106,5 +102,10 @@ export class CommentCardComponent implements OnInit {
         return data as CommentActionType[];
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

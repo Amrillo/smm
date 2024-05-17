@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 
 @Injectable({
@@ -10,7 +9,7 @@ import { Location } from '@angular/common';
 })
 export class AuthForwardGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private location: Location, private _snackBar: MatSnackBar) {}
+  constructor(private authService: AuthService, private location: Location) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

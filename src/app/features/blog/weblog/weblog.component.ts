@@ -1,9 +1,9 @@
 
-import { HttpParams } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { combineLatest, concat, concatMap, map, switchMap, tap} from 'rxjs';
+import { ActivatedRoute,Router } from '@angular/router';
+import { EMPTY, Observable, Subject, catchError, map, switchMap, takeUntil, tap} from 'rxjs';
 import { ActiveParamsUtil } from 'src/app/shared/services/active-params.util';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
@@ -19,15 +19,21 @@ import { CategoryType } from 'src/types/category.type';
 })
 export class WeblogComponent implements OnInit {
 
+  private destroy$ = new Subject<void>;
+
   sortingOpen: boolean = false;
   selectedCategory: boolean = false;
+  messageEmpty: boolean = false; 
+
   appliedFilters: CategoryType[] = [];
-  activeIndex: number = -1;
   categoryTypes: CategoryType[] = [];
   activeParams: ActiveParamsType = {category: []};
   articles: ArticlesType[] = [];
   pages: number[] = [];
+  
   activePage: number = 1 ;
+  activeIndex: number = -1;
+
   constructor(private categoryS: CategoryService, private articlesS: ArticleService,
     private _snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -35,46 +41,57 @@ export class WeblogComponent implements OnInit {
 
     this.activatedRoute.queryParams
     .pipe(
-       map(params=> {
-         return ActiveParamsUtil.handleParams(params);
-       }),
-        tap((activeParams:ActiveParamsType)=> {
-          this.activeParams = activeParams;
-          this.appliedFilters = [];
-          this.pages = [];
-          this.activePage = 1;
-        }),
-        switchMap((activeParams: ActiveParamsType)=>{
-          return this.articlesS.getAllArticles(activeParams)
+       map(params=>ActiveParamsUtil.handleParams(params)
+       ),
+       tap((activeParams:ActiveParamsType)=> {
+        this.activeParams = activeParams;
+        this.appliedFilters = [];
+        this.pages = [];
+        this.activePage = 1;
+      }),                                                               
+      switchMap((activeParams: ActiveParamsType)=>
+        this.articlesS.getAllArticles(activeParams)
             .pipe(
               tap((data: ArticlesAllType) => {
                 this.articles = data.items;
                 for (let i = 1; i <= data.pages; i++) {
                   this.pages.push(i);
-            }
-          })
-        );
-      }),
-       switchMap(()=> {
+                }
+              }),
+              catchError((errorResponse:HttpErrorResponse)=>{  
+                if(errorResponse.error) {  
+                  this.messageEmpty = true; 
+                  this._snackBar.open('Ошибка сервера при получении данных')
+                  throw new Error(errorResponse.message);
+                }
+                return EMPTY
+              })
+            )
+          ),
+        switchMap(()=> {
           return this.categoryS.getCategories()
           .pipe(
             tap((data:CategoryType[])=>{
               this.categoryTypes = data ;
-            })
-          );
-       })
-    )
-    .subscribe(()=> {
-      if(this.activeParams.category) {
-        this.categoryTypes.forEach(category=> {
-          if(this.activeParams.category.some(item=> item === category.url)) {
-              this.appliedFilters.push(category);
-          }
-       });
-     }
+            }),
+          )
+        }),
+      takeUntil(this.destroy$)
+      )
+      .subscribe(()=> {
+        if(this.activeParams.category) {
+          this.categoryTypes.forEach(category=> {
+            if(this.activeParams.category.some(item=> item === category.url)) {
+                this.appliedFilters.push(category);
+            }
+        });
+        }
     });
   }
-
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   toggleSorting():void {
     this.sortingOpen = !this.sortingOpen;
       // отритыя выпадающего списка
@@ -83,13 +100,11 @@ export class WeblogComponent implements OnInit {
   sortCategory(categoryUrl:string):void {
     this.activeParams.category = [...this.activeParams.category, categoryUrl];
       const activeParams: ActiveParamsType  = {category:  this.activeParams.category};
-      console.log(this.activeParams);
       this.router.navigate(['/blog'], {
       queryParams: activeParams
     });
-
-
   }
+
   removeSorted(categoryUrl:string):void {
     this.activeParams.category = this.activeParams.category.filter(item=> item !== categoryUrl);
      this.router.navigate(['/blog'], {
@@ -98,7 +113,6 @@ export class WeblogComponent implements OnInit {
   }
 
   removeFilter(value:string):void {
-
       if(this.activeParams.category) {
         this.activeParams.category = this.activeParams.category.filter(item=> item !== value);
         this.router.navigate(['/blog'], {

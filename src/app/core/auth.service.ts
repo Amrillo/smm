@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, throwError} from 'rxjs';
+import { BehaviorSubject, Observable, Subject, throwError} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DefaultResponseType } from 'src/types/default-response.type';
 import { LoginResponseType } from 'src/types/login-response.type';
 import { UserInfoType } from 'src/types/user-info.type';
+import { __values } from 'tslib';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
     public refreshTokenKey: string = 'refreshToken';
     public userIdKey: string  = 'userId';
     private isLogged: boolean = false;
-    public isLogged$: Subject<boolean> = new Subject<boolean>();
+    public isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
  
 
   constructor(private http: HttpClient ) {

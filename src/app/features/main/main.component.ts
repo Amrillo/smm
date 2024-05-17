@@ -7,7 +7,6 @@ import { OrderModalService } from 'src/app/shared/services/order-modal.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ArticlesType } from 'src/types/articles.type';
 import { reviewsData } from 'src/constants/reviews-data';
-import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -15,6 +14,7 @@ import { AuthService } from 'src/app/core/auth.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+
     email: string = 'info@itstorm.com' ; 
 
   customOptions: OwlOptions = {
@@ -70,8 +70,10 @@ export class MainComponent implements OnInit {
   sliders = sliderData ;
   advantages = advantagesData ;
   reviews = reviewsData ;
+
   topArticles: ArticlesType[] = [];
-  constructor(private orderCallService: OrderModalService, private articleService : ArticleService, private authService: AuthService) { }
+
+  constructor(private orderCallService: OrderModalService, private articleService : ArticleService ) { }
 
     ngOnInit(): void {
         this.articleService.getTopArticles()
@@ -85,6 +87,5 @@ export class MainComponent implements OnInit {
       this.orderCallService.mainOrder();
       this.orderCallService.show();
     }
-
 
 }
