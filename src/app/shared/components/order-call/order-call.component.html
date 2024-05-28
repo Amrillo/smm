@@ -1,4 +1,4 @@
-<div class="order-box" *ngIf="showOrder">
+<div class="order-box"   *ngIf="showOrder">
   <div class="order-box__wrapper order-call">
       <div class="order-box__close"  (click)="closeOrder()">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -6,13 +6,20 @@
             <line x1="12.9236" y1="0.629714" x2="0.902769" y2="12.6505" stroke="#BEBEBE" stroke-linecap="round"/>
           </svg>
       </div>
-      <ng-content select="[main]"></ng-content>
-      <ng-content select="[footer]"></ng-content>
+      <h2 class="sub-title" *ngIf="data.orderType === 'consultation'; else mainOrder">Закажите бесплатную консультацию!</h2>
+      <ng-template #mainOrder>
+         <h2 class="sub-title">Заявка на услугу</h2>
+      </ng-template>
       <div class="order-call__form"   [formGroup]="orderForm">
-          <div class="dropdown" *ngIf="orderType === 'order'" >
-              <input type="text"  class="dropdown__btn" placeholder="Копирайтинг" formControlName ="category"
-              (click)="showContent()" [(ngModel)]="categoryValue" required  minlength="3">
-              <div id="myDropdown" class="dropdown__content" *ngIf="dropdownList">
+          <div class="dropdown" *ngIf="data.orderType === 'order'">
+              <input type="text"  class="dropdown__btn" 
+              placeholder="Копирайтинг" 
+              formControlName ="category"
+              (click)="showContent()" 
+              [(ngModel)]="data.categoryValue" required  minlength="3">
+              <div id="myDropdown" 
+              class="dropdown__content" 
+              *ngIf="dropdownList">
                   <a *ngFor="let category of categories" (click)="selectValue(category.name)">{{category.name}}</a>
               </div>
 
@@ -20,23 +27,45 @@
                   class="show-error">Обязательное поле
               </div>
           </div>
-          <input type="text"  class="order-call__input"  name="name" placeholder="Ваше имя"
-              formControlName ="name">
-          <div class="show-error"  *ngIf="orderForm.get('name')?.invalid && (orderForm.get('name')?.dirty || orderForm.get('name')?.touched)">
+          <input type="text"  
+                class="order-call__input"  
+                name="name"
+                placeholder="Ваше имя"
+                formControlName ="name">
+          <div class="show-error"  
+          *ngIf="orderForm.get('name')?.invalid && (orderForm.get('name')?.dirty || orderForm.get('name')?.touched)">
+
             <p *ngIf="orderForm.get('name')?.errors?.['required']">Обязательное поле</p>
             <p *ngIf="orderForm.get('name')?.errors?.['minlength']">Слова не должна состоит не менее 3 слов</p>
+
           </div>
-          <input type="text" class="order-call__input" placeholder="Ваш номер телефона" id="phone" name="phone"
-              prefix="+7" [specialCharacters]="['(', ')',' ', '-']"  mask="(000) 000-00-00"
-              formControlName ="phone"  required>
+          <input type="text"
+                class="order-call__input" 
+                placeholder="Ваш номер телефона" 
+                id="phone" name="phone"
+                prefix="+7" [specialCharacters]="['(', ')',' ', '-']"  mask="(000) 000-00-00"
+                formControlName ="phone"  required>
           <div class="show-error" *ngIf="orderForm.get('phone')?.invalid && (orderForm.get('phone')?.dirty || orderForm.get('phone')?.touched)">
+
               <p *ngIf="orderForm.get('phone')?.errors?.['required']">Обязательное поле</p>
               <p *ngIf="orderForm.get('phone')?.errors?.['pattern']">Введите корректний номер телефона</p>
+
           </div>
-          <button class="button" (click)="sendOrder()" type="submit" [disabled]="orderForm.invalid"
-          [ngClass]="{'disabled': orderForm.invalid}"  *ngIf="orderType === 'consultation'">Заказать звонок</button>
-          <button class="button" type="submit" [disabled]="orderForm.invalid" [ngClass]="{'disabled': orderForm.invalid}" *ngIf="orderType === 'order'"
-                (click)="sendOrder()">Оставить заявку</button>
+
+          <button class="button" 
+                    (click)="sendOrder()"
+                    type="submit" [disabled]="orderForm.invalid"
+                    [ngClass]="{'disabled': orderForm.invalid}"  
+                    *ngIf="data.orderType === 'consultation'">
+                      Заказать звонок
+          </button>
+          <button class="button" 
+                    type="submit" [disabled]="orderForm.invalid" 
+                    [ngClass]="{'disabled': orderForm.invalid}"
+                    *ngIf="data.orderType === 'order'"
+                    (click)="sendOrder()">
+                Оставить заявку
+          </button>
       </div>
   </div>
 </div>

@@ -44,7 +44,7 @@
                    и даю <a      [routerLink]="['/policy']"  fragment="personalInfo" >согласие на обработку персональных данных.</a>
                 </label>
             </div>
-            <button class="button" [disabled]="!userForm.valid" (click)="signup()">Зарегистрироваться</button>
+            <button class="button" [disabled]="!userForm.valid && (!userForm.controls.agree)" (click)="signup()">Зарегистрироваться</button>
             <div class="user__link">
               Уже есть аккаунт?  <a (click)="passToLogin()">Войдите</a>
             </div>

@@ -18,7 +18,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgxMaskModule } from 'ngx-mask';
 import { PolicyComponent } from './features/policy/policy.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

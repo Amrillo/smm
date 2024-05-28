@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Route, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DefaultResponseType } from 'src/types/default-response.type';

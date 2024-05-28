@@ -10,6 +10,7 @@ import { ArticleCardComponent } from './components/article-card/article-card.com
 import { RouterModule } from '@angular/router';
 import { CommentCardComponent } from './components/comment-card/comment-card.component';
 import { NgxMaskModule } from 'ngx-mask';
+import {DialogModule} from '@angular/cdk/dialog';
 
 
 
@@ -28,6 +29,7 @@ import { NgxMaskModule } from 'ngx-mask';
     MatSnackBarModule,
     NgxMaskModule,
     HttpClientModule,
+    DialogModule,
     RouterModule
 
   ],

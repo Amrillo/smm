@@ -1,21 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { OrderModalService } from '../services/order-modal.service';
+import { Component} from '@angular/core';
+
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html'
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent  {
 
-  order:string = '';
-
-  constructor(private orderModalService: OrderModalService) {
-  }
-  ngOnInit(): void {
-
-    this.orderModalService.string$.subscribe((data:string)=> {
-           this.order = data ;
-    });
-  }
-
+  
 }

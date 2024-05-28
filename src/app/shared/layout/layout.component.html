@@ -1,9 +1,3 @@
 <app-header></app-header>
 <router-outlet></router-outlet>
 <app-footer></app-footer>
-<order-call>
-    <h2 class="sub-title" footer *ngIf="order === 'consultation'; else mainOrder">Закажите бесплатную консультацию!</h2>
-    <ng-template #mainOrder>
-       <h2 class="sub-title" main >Заявка на услугу</h2>
-    </ng-template>
-</order-call>

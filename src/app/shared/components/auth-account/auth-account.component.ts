@@ -29,7 +29,7 @@ export class AuthAccountComponent  {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
     rememberMe: [false],
-    agree: [false]
+    agree: [false, Validators.required]
 });
 
     passToLogin() {

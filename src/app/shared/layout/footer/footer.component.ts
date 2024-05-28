@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { OrderModalService } from '../../services/order-modal.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { OrderCallComponent } from '../../components/order-call/order-call.component';
 
 @Component({
   selector: 'app-footer',
@@ -10,12 +11,11 @@ export class FooterComponent {
 
   email: string = 'info@itstorm.com';
 
-  constructor(private orderCallService: OrderModalService) { }
+  constructor(private dialog: Dialog) { }
 
-  
   makeOrderCall() {
-    this.orderCallService.show();
-    this.orderCallService.footerOrder();
+    const data = {categoryValue: 'SMM',  orderType: 'consultation'};
+    this.dialog.open(OrderCallComponent, {data})
   }
 
 }
