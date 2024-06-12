@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, throwError} from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { DefaultResponseType } from 'src/types/default-response.type';
 import { LoginResponseType } from 'src/types/login-response.type';
 import { UserInfoType } from 'src/types/user-info.type';
