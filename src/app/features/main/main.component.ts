@@ -53,16 +53,14 @@ export class MainComponent implements OnInit {
     navSpeed: 700,
     navText: ['', ''],
     responsive: {
-      0: {
+      320: {
         items: 1
       },
-      400: {
-        items: 1
+
+      820: {
+        items: 2
       },
-      740: {
-        items: 1
-      },
-      940: {
+      1200: {
         items: 3
       }
     },

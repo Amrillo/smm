@@ -1,3 +1,7 @@
+
+@import "variables";
+
+
 @mixin flex-spc-betw {
   display: flex;
   justify-content: space-between;
@@ -9,3 +13,54 @@
   justify-content: center;
   align-items: center;
 }
+
+@mixin mob {
+  @media (max-width: map-get($breakpoints, "mob")) {
+    @content;
+  }
+}
+
+@mixin mob-h {
+  @media (max-width: map-get($breakpoints, "mob-h")) {
+    @content;
+  }
+}
+@mixin tab-sm {
+  @media (max-width: map-get($breakpoints, "tab-sm")) {
+    @content;
+  }
+}
+
+@mixin tab-m {
+  @media (max-width: map-get($breakpoints, "tab-m")) {
+    @content;
+  }
+}
+@mixin tab {
+  @media (max-width: map-get($breakpoints, "tab")) {
+    @content;
+  }
+}
+
+@mixin lap {
+  @media (max-width: map-get($breakpoints, "lap")) {
+    @content;
+  }
+}
+@mixin lap-1{
+  @media (max-width: map-get($breakpoints, "lap-1")) {
+    @content;
+  }
+}
+@mixin lap-2 {
+  @media (max-width: map-get($breakpoints, "tab-sm")) {
+    @content;
+  }
+}
+
+
+
+
+
+
+

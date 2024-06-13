@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   loggedIn: boolean = false;
   userName: string = '';
-
+  shown: boolean = false;  
   constructor(private authService : AuthService, private _snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit(): void {
@@ -71,5 +71,12 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/login']);
    };
 
+   toogleMenu() {  
+     this.shown = !this.shown; 
+   }
+
+   shutDownMenu() {  
+      this.shown = false; 
+   }
 }
 

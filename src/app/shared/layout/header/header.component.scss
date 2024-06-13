@@ -6,20 +6,315 @@
   font-size: 16px;
   font-weight: 500;
 
+  @include tab {  
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: #fff;
+    margin-bottom: 100px;
+  } 
   .container {
-     @include flex-spc-betw;
+    @include flex-spc-betw;
+   }
+
+  &__navbar {  
+    @include flex-spc-betw; 
+    flex-grow: 1;
+
+    @include tab {  
+      position: fixed;
+      display: flex;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100vh;
+      padding-left: $cont-p;
+      padding-right: $cont-p;
+      padding-top: 116px;
+      padding-bottom: 24px;
+      background-color: #07173994;
+      overflow-y: auto;
+      transform: translateX(-100%);
+      margin-left: 0;
+
+      &.is-opened {  
+        transform: translateX(0);
+        animation-name: menu-open;
+        animation-duration: .3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+    }
+  }
+  .menu {  
+
+    @include tab {  
+      flex-direction: column;
+      top: 80px;
+      align-items: flex-start;
+      font-size: 24px;
+      font-weight: 600;
+      overflow-y: auto;
+      flex-wrap: nowrap;
+      width: 100%;
+      height: 100%;
+      margin-bottom: 55px;
+      &__item {  
+        margin-bottom: 40px;
+        a {  
+          color: #fff;
+        }
+      }
+    }
   }
 
   &__phone {
     color: $primary-light-color ;
+    @include tab {  
+      display: none;
+     } 
+
   }
 
   &__account {
     @include flex-spc-betw;
     cursor: pointer;
     min-width: 84px;
+
+    svg path {  
+      @include tab {  
+        stroke: $primary-white-color;
+      }
+    }
     span {
       margin-left: 7px;
+
+      @include tab {  
+        color: $primary-white-color;
+       } 
     }
   }
+
+  &__menu-burger {
+    display: none;
+    position: relative;
+    padding: 13px;
+    width: 46px;
+    z-index: 11;
+    cursor: pointer;
+    transition:  background-color .3s ease-in-out;
+  
+  
+    &:focus {  
+      outline: none;
+  
+      .menu-burger__line {  
+        outline: none;
+        background-color: $primary-light-color;
+      }
+    }
+  
+    &:hover {  
+      .menu-burger__line {  
+        background-color: $primary-light-color;
+      }
+    }
+  
+    .menu-burger__line {
+      display: block;
+      position: absolute;
+      height: 3.65px;
+      display: inline-block;
+      background-color: $primary-dark-color;
+      transition: all .3s ease-in-out;
+  
+      &:hover { 
+        color: var(--orange-col-1);
+      }
+  
+        &:nth-child(1) { 
+          top: 0;
+          left: 0;
+          width: 36px;
+        }
+        &:nth-child(2) { 
+          top: 13px;
+          left: 0;
+          width: 36px;
+        }
+        &:nth-child(3) { 
+          top: 25px;
+          left: 0;
+          width: 36px;
+        }
+  
+      }
+      &.is-opened { 
+        background-color: transparent;
+      }
+
+      @include tab {  
+        display: block;
+        background-color: $primary-white-color;
+        border: none;
+
+      }
+    }
+}
+
+/*  ------------------burger ------------------------*/  
+
+
+  .is-opened.menu-burger__line {
+    transform-origin: center;
+    background-color: #fff;
+  }
+  
+  .is-opened.header__menu-burger .menu-burger__line:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    background-color: #fff;
+  }
+  .is-opened.header__menu-burger .menu-burger__line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-100%);
+    background-color: #fff;
+    }
+  .is-opened.header__menu-burger .menu-burger__line:nth-child(3) {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+    width: 36px;
+    background-color: #fff;
+  }
+ 
+
+
+//   .top-header__navbar {
+//     position: fixed;
+//     display: flex;
+//     left: 0;
+//     top: 0;
+//     z-index: 1;
+//     width: 100%;
+//     height: 100vh;
+//     padding-left: var(--cont-padding);
+//     padding-right: var(--cont-padding);
+//     padding-top: 116px;
+//     padding-bottom: 24px;
+//     background-color: var(--black-col-1);
+//     overflow-y: auto;
+//     transform: translateX(-100%);
+//     margin-left: 0;
+// }
+
+// .navbar__list {
+//     flex-direction: column;
+//     top: 80px;
+//     align-items: flex-start;
+//     font-size: 24px;
+//     font-weight: 600;
+//     overflow-y: auto;
+//     flex-wrap: nowrap;
+//     width: 100%;
+//     height: 100%;
+//     margin-bottom: 55px;
+// }
+// .navbar__item {
+//     margin-bottom: 40px;
+// }
+
+
+
+
+// .header__menu-burger:focus {  
+// outline: none;
+// }
+// .header__menu-burger:focus .menu-burger__line {  
+// outline: none;
+// background-color: var(--orange-col-1);
+// }
+// .header__menu-burger:hover .menu-burger__line { 
+// background-color: var(--orange-col-2);
+// }
+
+// .menu-burger__line {
+//   display: block;
+//   position: absolute;
+//   height: 3.65px;
+//   display: inline-block;
+//   background-color: var(--white-col-1);
+//   transition: background-color .3s ease-in-out;
+ 
+// }
+
+// .menu-burger__line:hover {  
+// color: var(--orange-col-1);
+// }
+
+// .menu-burger__line:nth-child(1) {
+//   top: 0;
+//   left: 0;
+//   width: 36px;
+// }
+// .menu-burger__line:nth-child(2) {
+//   top: 13px;
+//   left: 0;
+//   width: 28px;
+// }
+// .menu-burger__line:nth-child(3) {
+//   top: 25px;
+//   left: 0;
+//   width: 24px;
+// }
+// .is-opened.menu-burger__line {
+//   transform-origin: center;
+// }
+
+// .is-opened.header__menu-burger .menu-burger__line:nth-child(1) {
+//   top: 50%;
+//   transform: translateY(-50%) rotate(45deg);
+// }
+// .is-opened.header__menu-burger .menu-burger__line:nth-child(2) {
+//   opacity: 0;
+//   transform: translateX(-100%);
+//   }
+// .is-opened.header__menu-burger .menu-burger__line:nth-child(3) {
+//   top: 50%;
+//   transform: translateY(-50%) rotate(-45deg);
+//   width: 36px;
+// }
+
+ 
+
+@media only screen and (max-width: 324px) {
+
+.header__menu-burger {
+  padding: 10px;
+}
+.menu-burger__line {
+  height: 2px;
+}
+.menu-burger__line:nth-child(1) {
+  width: 25px;
+}
+.menu-burger__line:nth-child(2) {
+  width: 16px;
+  top: 9px;
+}
+.menu-burger__line:nth-child(3) {
+  top: 17px;
+  width: 10px;
+}
+
+.is-opened.header__menu-burger .menu-burger__line:nth-child(3),
+.is-opened.header__menu-burger .menu-burger__line:nth-child(1) {
+  width: 19px;
+  }
+ 
 }
