@@ -4,12 +4,13 @@
 // slider styles
 
 .slider {
-  height: 500px;
+  // max-height: 500px;
   padding-bottom: 60px;
 
+  
   @include tab {  
     position: relative;
-    top: 132px;
+    top: 90px;
   }
  
 
@@ -32,6 +33,9 @@
       right: 0;
       z-index: 5;
 
+      @include tab-sm {  
+        background-size: contain;
+      }
       img {  
         max-width: 100%;
         object-fit: cover;
@@ -45,12 +49,24 @@
       padding-top: 100px;
       padding-left: 80px;
       padding-bottom: 90px;
+
+      @include tab-sm {  
+        padding-top: 50px;
+        padding-left: 30px;
+        padding-bottom: 20px;
+        max-height: 400px;
+      }
+
   }
   &__title {
       font-size: 12px;
       color: $primary-light-color;
       text-transform: capitalize;
       font-weight: 600;
+      @include tab-sm {  
+        padding-bottom: 10px;
+        
+      }
   }
   &__info-title {
     font-family: "Lora", sans-serif;
@@ -60,6 +76,13 @@
     color: $primary-white-color;
     margin-bottom: 40px;
     max-width: 600px;
+
+    @include tab-sm {  
+      font-size: 36px;
+      line-height: 44px;
+      margin-bottom: 20px;
+    }
+
   }
 
    &__info-text {
@@ -68,14 +91,51 @@
      margin-bottom: 50px;
      color: $primary-white-color;
      max-width: 456px;
+
+     @include tab-sm {  
+      font-size: 18px;
+      line-height: 22px;
+      margin-bottom: 35px;
+    }
    }
 
+   .button {  
+    @include tab-sm {  
+      padding: 10px 30px;
+      width: unset;
+      height: unset;
+      font-size: 14px;
+    }
+   }
+
+   .owl-theme .owl-nav.disabled+.owl-dots {
+
+    @include tab-sm {  
+      margin-top: -5%;
+    }
+  }
+
+  .slider-arrows a.next-btn {
+    @include tab-sm {  
+      right: 5%;
+    }
+  }
+  .slider-arrows a.prev-btn {
+    @include tab-sm {  
+      left: 5%;
+     }
+  }
 }
+
+
 
 // section services
 .services {
      padding: 60px 0;
 
+    @include tab {  
+      padding-top: 100px;
+    }  
     .sub-title {    
       margin-bottom: 40px;
     }
@@ -332,6 +392,7 @@
    .container {
       display: flex;
       align-items: center;
+      justify-content: space-between;
    }
 
    &__info {
@@ -375,6 +436,13 @@
           }
         }
        }
+       @include tab-sm {  
+          align-items: center;
+       }
      }
+   }
+
+   &__map {  
+     width: 600px;
    }
 }

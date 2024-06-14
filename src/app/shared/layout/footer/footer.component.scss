@@ -10,8 +10,16 @@
     &__menu {
       display: flex;
        margin-bottom: 40px;
+
+       @include tab-sm { 
+          display: none;
+       }
       .menu {
        margin-left: 43px;
+
+       @include tab-m { 
+         margin-left: 0; 
+      }
 
        &__item {
          margin-right: 20px;
@@ -50,6 +58,10 @@
           padding: 10px 20px;
           font-size: 12px;
         }
+        @include tab-m { 
+           margin: 0 
+
+        }
       }
 
       &-icons {
@@ -57,10 +69,22 @@
         width: 96px;
         margin-top: 10px;
       }
+
+
+      @include tab-m {  
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 10px;
+      }
     }
 
     &__rights {
       color: $primary-light-color;
+
+      @include tab-m {  
+        text-align: center;
+      } 
     }
 }
 

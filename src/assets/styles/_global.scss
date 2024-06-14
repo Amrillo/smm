@@ -140,6 +140,11 @@ textarea.ng-touched.ng-valid  {
 .owl-carousel .owl-item img {
   width: unset !important;
   object-fit: contain;
+
+    @include tab-sm {  
+      width: 70% !important;
+    }
+  
 }
 
 .owl-theme .owl-nav.disabled+.owl-dots {
@@ -166,6 +171,7 @@ textarea.ng-touched.ng-valid  {
 .slider-arrows {
   display: flex;
   align-items: center;
+  
   a {
     top: calc(50% - 5px);
     display: flex;
@@ -174,10 +180,10 @@ textarea.ng-touched.ng-valid  {
     cursor: pointer;
 
     &.prev-btn {
-      left: 20px
+      left: 60px
     }
     &.next-btn {
-      right: 20px
+      right: 60px
     }
   }
 }
