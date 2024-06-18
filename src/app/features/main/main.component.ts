@@ -17,7 +17,7 @@ import { OrderCallComponent } from 'src/app/shared/components/order-call/order-c
 })
 export class MainComponent implements OnInit {
 
-    email: string = 'info@itstorm.com' ; 
+    email: string = 'info@itstorm.com' ;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -53,7 +53,7 @@ export class MainComponent implements OnInit {
     navSpeed: 700,
     navText: ['', ''],
     responsive: {
-      320: {
+      220: {
         items: 1
       },
 
@@ -73,7 +73,7 @@ export class MainComponent implements OnInit {
 
   topArticles: ArticlesType[] = [];
 
-  constructor(private articleService : ArticleService ,  
+  constructor(private articleService : ArticleService ,
     private dialog: Dialog
    ) { }
 
@@ -86,7 +86,7 @@ export class MainComponent implements OnInit {
     }
 
     putOrder(category: string) {
-      const data = {categoryValue: category, orderType: 'order'}; 
+      const data = {categoryValue: category, orderType: 'order'};
       this.dialog.open(OrderCallComponent, {data})
 
     }

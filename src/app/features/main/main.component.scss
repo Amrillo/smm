@@ -7,41 +7,50 @@
   // max-height: 500px;
   padding-bottom: 60px;
 
-  
-  @include tab {  
+  @include mob-h {
+    padding-bottom: 20px;
+  }
+
+  @include tab {
     position: relative;
     top: 90px;
   }
- 
+
 
   .container {
     position: relative;
   }
 
-  &__holder {
-      width: 100%;
-      position: relative;
-  }
+  // &__holder {
+  //     width: 100%;
+  //     position: relative;
+  // }
 
   &__shape {
       background-position: center right;
       background-repeat: no-repeat;
-      background-size: auto;
+      background-size: cover;
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       z-index: 5;
+      width: 100%;
+      height: 100%;
 
-      @include tab-sm {  
-        background-size: contain;
-      }
-      img {  
+      // @include tab-sm {
+      //   background-size: contain;
+      // }
+      img {
         max-width: 100%;
         object-fit: cover;
       }
     }
+
+
   &__box {
+      display: flex;
+      flex-direction: column;
       position: relative;
       z-index: 6;
       top: 0;
@@ -50,22 +59,44 @@
       padding-left: 80px;
       padding-bottom: 90px;
 
-      @include tab-sm {  
-        padding-top: 50px;
-        padding-left: 30px;
-        padding-bottom: 20px;
-        max-height: 400px;
+      @include tab-sm {
+        min-height: 610px;
+       }
+      @include mob-h {
+        padding: 50px 30px;
+        min-height: 410px;
+      }
+      @include mob-h {
+        justify-content: space-between;
+      }
+       @include mob {
+        min-height: 280px;
+        padding: 30px 15px;
       }
 
+  }
+  &__titles {
+    margin-bottom: 40px;
+    @include mob {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+  }
+
+  &__content {
+    @include mob {
+      text-align: center;
+    }
   }
   &__title {
       font-size: 12px;
       color: $primary-light-color;
       text-transform: capitalize;
       font-weight: 600;
-      @include tab-sm {  
+      @include mob-h {
         padding-bottom: 10px;
-        
+
       }
   }
   &__info-title {
@@ -74,17 +105,21 @@
     font-weight: 400;
     line-height: 65px;
     color: $primary-white-color;
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
     max-width: 600px;
 
-    @include tab-sm {  
+    @include mob-h {
       font-size: 36px;
       line-height: 44px;
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
     }
 
+    @include mob {
+      text-align: center;
+      font-size: 22px;
+      line-height: 26px;
+    }
   }
-
    &__info-text {
      font-size: 24px;
      line-height: 32px;
@@ -92,52 +127,69 @@
      color: $primary-white-color;
      max-width: 456px;
 
-     @include tab-sm {  
+     @include mob-h {
       font-size: 18px;
       line-height: 22px;
       margin-bottom: 35px;
     }
-   }
 
-   .button {  
-    @include tab-sm {  
-      padding: 10px 30px;
-      width: unset;
-      height: unset;
+    @include mob {
       font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 20px;
     }
    }
 
-   .owl-theme .owl-nav.disabled+.owl-dots {
-
-    @include tab-sm {  
-      margin-top: -5%;
-    }
-  }
-
+  //  .owl-theme .owl-nav.disabled + .owl-dots {
+  //   @include tab-sm {
+  //     margin-top: 10px;
+  //   }
+  // }
   .slider-arrows a.next-btn {
-    @include tab-sm {  
-      right: 5%;
+    @include tab-sm {
+      right: 8%;
+    }
+    @include mob {
+      right: 10%;
+    }
+    svg {
+      @include mob {
+        width: 10px;
+        height: 20px;
+      }
     }
   }
   .slider-arrows a.prev-btn {
-    @include tab-sm {  
-      left: 5%;
+    @include tab-sm {
+      left: 8%;
      }
+     @include mob {
+        left: 10%;
+    }
+     svg {
+      @include mob {
+        width: 10px;
+        height: 20px;
+      }
+    }
   }
 }
 
 
-
 // section services
 .services {
-     padding: 60px 0;
+    padding: 60px 0;
 
-    @include tab {  
-      padding-top: 100px;
-    }  
-    .sub-title {    
+    @include mob {
+      padding-bottom: 0;
+   }
+
+    .sub-title {
       margin-bottom: 40px;
+      @include mob {
+         margin-bottom: 20px;
+      }
+
     }
 
     &__list {
@@ -145,15 +197,15 @@
       flex-wrap: wrap;
       gap: 26px;
 
-      @include lap-1 {  
+      @include lap-1 {
         justify-content: center;
      }
-       
+
     }
     &__item {
       max-width: 290px;
       min-height: 498px;
- 
+
       &-image {
         height: 290px;
         border-radius: 5px;
@@ -171,6 +223,13 @@
         line-height: 18px;
         color: $primary-dark-color;
         margin-bottom: 33px;
+
+
+        @include mob {
+           line-height: 16px;
+        }
+
+
        }
        &-bottom {
         @include flex-spc-betw ;
@@ -179,6 +238,10 @@
           font-size: 20px;
           font-weight: 600;
           color: $primary-light-color;
+
+          @include mob {
+            font-size: 16px;
+         }
         }
         button {
           padding: 15px 33px;
@@ -192,17 +255,22 @@
 .aboutus {
    padding: 60px 0;
 
+
+   @include mob {
+    padding-bottom: 0;
+ }
+
    .container {
      display: flex;
      align-items: flex-start;
      justify-content: space-between;
 
 
-     @include lap {  
+     @include lap {
        align-items: center;
      }
 
-     @include tab-m {  
+     @include tab-m {
       flex-direction: column-reverse;
       align-items: center;
       justify-content: center;
@@ -217,8 +285,20 @@
       margin-top: 20px;
       background-position: center;
       background-size: cover;
+      background-repeat: no-repeat;
 
-      
+      @include tab-sm {
+         margin-right: 0;
+      }
+       @include mob-h {
+         min-width: 320px;
+         height: 350px;
+         min-height: unset;
+         background-size: contain;
+      }
+      @include mob-h {
+        min-width: 280px;
+      }
    }
    &__info {
       text-align: left;
@@ -229,7 +309,7 @@
         line-height: 18px;
         margin-bottom: 40px;
 
-        @include tab-m {  
+        @include tab-m {
           text-align: center;
           margin: 0 auto;
           margin-bottom: 40px;
@@ -250,7 +330,7 @@
       font-weight: 400;
       margin-bottom: 20px;
 
-      @include lap {  
+      @include lap {
         text-align: center;
       }
 
@@ -262,7 +342,7 @@
       padding-right: 9px;
       gap: 20px;
 
-      @include lap {  
+      @include lap {
         justify-content: center;
       }
     }
@@ -296,7 +376,9 @@
 
 .articles {
    padding: 60px 0;
-
+   @include mob {
+    padding-bottom: 0;
+  }
    .sub-title {
      margin-bottom: 40px;
    }
@@ -328,8 +410,15 @@
 .reviews {
   padding: 60px 0;
 
+  @include mob {
+    padding-bottom: 0;
+  }
   .sub-title {
     text-align: left;
+
+    @include mob {
+      text-align: center;
+    }
   }
   &__list {
     position: relative;
@@ -347,7 +436,7 @@
     }
   }
   &__item {
-     width: 95%;
+     width: 100%;
      height: 267px;
      padding: 30px;
      border-radius: 5px;
@@ -357,7 +446,14 @@
      &:last-child {
         margin-right: 0;
      }
-
+     @include mob {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+       padding: 15px;
+       height: 281px;
+    }
      &-account {
        display: flex;
        align-items: center;
@@ -393,8 +489,19 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-   }
 
+      @include mob {
+         flex-direction: column;
+      }
+
+   }
+    .card-title {
+
+      @include tab-sm {
+        text-align: center;
+      }
+
+    }
    &__info {
      margin-left: 25px;
      padding-bottom: 63px;
@@ -402,8 +509,12 @@
         margin-top: 15px;
       }
 
-      a {  
+      a {
         color: $primary-dark-color;
+      }
+
+      @include mob {
+        padding-bottom: 0;
       }
      &-text {
        max-width: 501px;
@@ -430,19 +541,23 @@
 
         a {
           margin-right: 20px;
-         
+
           &:last-child {
             margin-right: 0;
           }
         }
        }
-       @include tab-sm {  
+       @include tab-sm {
           align-items: center;
        }
      }
    }
 
-   &__map {  
+   &__map {
      width: 600px;
+
+     @include mob {
+       width: auto;
+     }
    }
 }

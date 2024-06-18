@@ -18,7 +18,7 @@ html, body {
     margin: 0 auto;
     padding: 0 50px;
 
-    @include tab-sm {  
+    @include tab-sm {
       padding: 0 $cont-p-mob;
     }
   }
@@ -48,7 +48,7 @@ input[type="password"]{
    }
 }
 
-button {  
+button {
   border: 0;
   background-color: transparent;
 }
@@ -113,6 +113,17 @@ textarea.ng-touched.ng-valid  {
       background-color: gray;
       cursor: not-allowed;
     }
+
+    @include tab-sm {
+      padding: 10px 30px;
+      font-size: 14px;
+      width: unset;
+      height: unset;
+    }
+
+    @include mob {
+      padding: 8px 20px;
+    }
 }
 
 .sub-title {
@@ -123,10 +134,15 @@ textarea.ng-touched.ng-valid  {
    margin-bottom: 20px;
    text-align: left;
 
-   @include tab {  
+   @include tab {
+    text-align: center;
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  @include mob {
+    font-size: 24px;
     text-align: center;
   }
-  
 }
 
 .card-title {
@@ -134,23 +150,39 @@ textarea.ng-touched.ng-valid  {
    font-size: 26px;
    font-weight: 500;
    color: $primary-light-color;
+
+   @include mob {
+    font-size: 20px;
+  }
 }
 
 // carousel built-in styles ;
 .owl-carousel .owl-item img {
-  width: unset !important;
-  object-fit: contain;
+  width: 62%;
+  // object-fit: contain;
 
-    @include tab-sm {  
-      width: 70% !important;
+
+    @include tab {
+      width: 80% !important;
     }
-  
+    @include tab-sm {
+      display: none;
+    }
+
 }
 
-.owl-theme .owl-nav.disabled+.owl-dots {
-  margin-top: -75px;
+.owl-theme .owl-nav.disabled + .owl-dots {
+  bottom: 50px;
   position: relative;
+
+  @include mob{
+     bottom: 35px;
+  }
+
+
 }
+
+
 .owl-theme .owl-dots .owl-dot span {
   background: transparent;
   border: 1px solid $primary-white-color;
@@ -161,8 +193,8 @@ textarea.ng-touched.ng-valid  {
   background: $primary-white-color;
 }
 
-// .owl-item {  
-//   @include tab-m {  
+// .owl-item {
+//   @include tab-m {
 //     width: 420px;
 //   }
 // }
@@ -171,7 +203,7 @@ textarea.ng-touched.ng-valid  {
 .slider-arrows {
   display: flex;
   align-items: center;
-  
+
   a {
     top: calc(50% - 5px);
     display: flex;
