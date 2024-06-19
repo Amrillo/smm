@@ -436,16 +436,12 @@
     }
   }
   &__item {
-     width: 100%;
+     width: 90%;
      height: 267px;
      padding: 30px;
      border-radius: 5px;
      border: 2px solid  $primary-light-color;
-     margin-right: 25px;
-
-     &:last-child {
-        margin-right: 0;
-     }
+      
      @include mob {
       display: flex;
       flex-direction: column;

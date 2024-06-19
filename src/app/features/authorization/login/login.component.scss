@@ -6,12 +6,40 @@
   padding-top: 106px;
   padding-bottom: 92px;
 
+
+  @include mob {  
+    padding-top: 90px;
+    padding-bottom: 40px;
+    position: relative;
+    top: 40px;
+    margin-bottom: 50px;
+  }
   .container {
      @include flex-spc-betw;
+
+     @include tab-sm {  
+       flex-direction: column;
+       align-items: center;
+     }
   }
   &__block {
      width: 422px ;
      margin-right: 185px;
+
+     input {  
+      width: 90%;
+     }
+     @include tab {  
+        max-width: 422px ;
+        margin-right: 50px;
+     }
+     @include tab-sm {  
+      margin-right: 0;
+    }
+
+    @include mob {   
+      max-width: 290px;
+    } 
   }
 
   &__image {
@@ -19,7 +47,12 @@
 
     img  {
      max-width: 100%;
-     object-fit: cover
+     object-fit: cover;
+
+     @include tab-sm {  
+        display: none;
     }
+
+    }    
   }
 }
