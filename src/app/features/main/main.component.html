@@ -48,7 +48,7 @@
         <h2 class="sub-title">Услуги, которые мы предлагаем</h2>
         <ul class="services__list">
            <li class="services__item" *ngFor="let serviceCard of serviceCards">
-                <div class="services__item-image" style="background-image: url('/assets/images/main/{{serviceCard.image}}')"></div>
+                <div class="services__item-image" style="background-image: url('assets/images/main/{{serviceCard.image}}')"></div>
                 <h3 class="card-title">{{serviceCard.title}}</h3>
                  <p class="services__item-text">{{serviceCard.text}}</p>
                 <div class="services__item-bottom">
@@ -61,7 +61,7 @@
 </section>
 <section class="aboutus" id="aboutus">
   <div class="container">
-      <div class="aboutus__image" style="background-image: url('/assets/images/main/aboutus.png')"></div>
+      <div class="aboutus__image" style="background-image: url('assets/images/main/aboutus.png')"></div>
       <div class="aboutus__info">
         <h2 class="sub-title">Кто мы и чем мы занимаемся?</h2>
         <p class="aboutus__info-text">
