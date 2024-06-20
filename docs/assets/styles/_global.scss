@@ -1,0 +1,221 @@
+// @import "variables";
+
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: calc($cont-w + 2 * $cont-p);
+    margin: 0 auto;
+    padding: 0 50px;
+
+    @include tab-sm {
+      padding: 0 $cont-p-mob;
+    }
+  }
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+   padding: 17.5px 20px;
+   border: 2px solid $primary-light-color;
+   margin-bottom: 5px;
+   font-size: 14px;
+   width: 100%;
+   border-radius: 3px;
+   &::placeholder {
+    color: #A8ABA7;
+   }
+   &:focus-visible {
+     outline: none;
+   }
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+input.ng-touched.ng-valid  {
+  border: 2px solid #42A948;
+}
+
+input.ng-touched.ng-invalid {
+  border: 2px solid #f08483;
+}
+textarea.ng-touched.ng-invalid {
+  border: 2px solid #f08483;
+}
+
+textarea.ng-touched.ng-valid  {
+  border: 2px solid #42A948;
+}
+
+
+.show-error {
+  text-align: left;
+  color: red;
+  margin-bottom: 5px;
+}
+
+.logo {
+  width: 85px;
+  cursor: pointer;
+  flex-grow: 1;
+    img {
+      max-width: 100%;
+    }
+}
+
+.menu {
+  @include flex-spc-betw;
+  gap: 30px;
+
+  &__item {
+    cursor: pointer;
+    a {
+      color: $primary-dark-color;
+      &.active {
+        color: $primary-light-color;
+      }
+    }
+  }
+}
+
+.button {
+    padding: 15px 40px;
+    width: 163px;
+    height: 51px;
+    background: #709FDC;
+    border-radius: 5px;
+    color: $primary-white-color;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+
+    @include tab-sm {
+      padding: 10px 30px;
+      font-size: 14px;
+      width: unset;
+      height: unset;
+    }
+
+    @include mob {
+      padding: 8px 20px;
+    }
+}
+
+.sub-title {
+   font-size: 38px;
+   font-family: "Lora", sans-serif;
+   font-weight: 400;
+   color: $primary-light-color;
+   margin-bottom: 20px;
+   text-align: left;
+
+   @include tab {
+    text-align: center;
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  @include mob {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+.card-title {
+  font-family: "Lora", sans-serif;
+   font-size: 26px;
+   font-weight: 500;
+   color: $primary-light-color;
+
+   @include mob {
+    font-size: 20px;
+  }
+}
+
+// carousel built-in styles ;
+.owl-carousel .owl-item img {
+  width: 62%;
+  // object-fit: contain;
+
+
+    @include tab {
+      width: 80% !important;
+    }
+    @include tab-sm {
+      display: none;
+    }
+
+}
+
+.owl-theme .owl-nav.disabled + .owl-dots {
+  bottom: 50px;
+  position: relative;
+
+  @include mob{
+     bottom: 35px;
+  }
+
+
+}
+
+
+.owl-theme .owl-dots .owl-dot span {
+  background: transparent;
+  border: 1px solid $primary-white-color;
+  border-radius: 50%;
+}
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: $primary-white-color;
+}
+
+// .owl-item {
+//   @include tab-m {
+//     width: 420px;
+//   }
+// }
+
+
+.slider-arrows {
+  display: flex;
+  align-items: center;
+
+  a {
+    top: calc(50% - 5px);
+    display: flex;
+    z-index: 1;
+    position: absolute;
+    cursor: pointer;
+
+    &.prev-btn {
+      left: 60px
+    }
+    &.next-btn {
+      right: 60px
+    }
+  }
+}

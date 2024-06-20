@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "build-gp": "ng build --output-path docs --base-href /smm/",
     "lint": "ng lint"
   },
   "private": true,
